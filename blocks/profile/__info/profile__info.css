@@ -1,0 +1,15 @@
+.profile__info
+{
+  padding: 0;
+  margin: auto 0 auto 30px;
+
+  display: grid;
+  grid-template-rows: 1fr 24px;
+  grid-auto-rows: max-content max-content;
+  grid-template-areas:
+    "title edit"
+    "subtitle subtitle";
+  row-gap: 16px;
+  column-gap: 18px;
+  align-items: end;
+}

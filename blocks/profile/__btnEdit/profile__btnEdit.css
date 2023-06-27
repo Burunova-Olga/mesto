@@ -1,0 +1,10 @@
+.profile__btnEdit
+{
+  grid-area: edit;
+  background-color: #000000;
+  background-image: url(../../../images/edit-btn.svg);
+  background-size: contain;
+
+  width: 24px;
+  height: 24px;
+}
