@@ -25,5 +25,20 @@
 
 *
 {
-/*border: 1px dashed blue;*/
+border: 1px dashed blue;
+}
+
+.elements
+{
+  margin: 51px auto 0;
+  padding: 0;
+
+  max-width: 880px;
+
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-auto-rows: 1fr;
+  grid-template-columns: repeat(3, 1fr);
+  row-gap: 17px;
+  column-gap: 20px;
 }

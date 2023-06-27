@@ -17,3 +17,10 @@
 @import url(../blocks/profile/__subtitle/profile__subtitle.css);
 @import url(../blocks/profile/__btnEdit/profile__btnEdit.css);
 @import url(../blocks/profile/__btnAdd/profile__btnAdd.css);
+
+/* Element */
+@import url(../blocks/element/element.css);
+@import url(../blocks/element/__image/element__image.css);
+@import url(../blocks/element/__caption/element__caption.css);
+@import url(../blocks/element/__text/element__text.css);
+@import url(../blocks/element/__like/element__like.css);
