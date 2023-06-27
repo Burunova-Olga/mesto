@@ -10,16 +10,16 @@
 
 <body class="page">
   <header class="header">
-    <div class="header__logo"></div>
-    <div class="line"></div>
+    <img src="images/header-logo.svg" alt="Логотип" class="header__logo">
+    <div class="header__line"></div>
   </header>
 
   <main>
     <section class="profile">
       <img src="" class="avatar" alt="Аватар">
-      <div class="profile_info">
-        <h1 class="profile_name">Жак-Ив Кусто</h1>
-        <h2 class="profile_descr">Исследователь океана</h2>
+      <div class="profile__info">
+        <h1 class="profile__name">Жак-Ив Кусто</h1>
+        <h2 class="profile__descr">Исследователь океана</h2>
         <button class="edit"></button>
       </div>
       <button class="add"></button>
@@ -30,7 +30,10 @@
         <img src="" class="element_image" alt="">
         <figcaption class="element_caption">
           <h3 for="like">Карачаевск</h3>
-          <input type="checkbox" id="like" name="like" class="like">
+          <label>
+            <input type="checkbox" id="like" name="like" class="like">
+            <span class="visible-checkbox"></span>
+          </label>
         </figcaption>
       </figure>
     </section>

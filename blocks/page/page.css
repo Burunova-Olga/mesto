@@ -13,3 +13,38 @@
   -ms-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
 }
+
+.input[type="checkbox"]
+{
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(0 0 0 0);
+}
+
+.header
+{
+  padding: 0;
+  margin: 45px auto 0;
+
+  max-width: 880px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.header__logo
+{
+  max-width: 142px;
+}
+
+.header__line
+{
+  padding: 0;
+  margin: 41px 0 0;
+
+  background-color: #545454;
+  width: 100%;
+  height: 1px;
+}
