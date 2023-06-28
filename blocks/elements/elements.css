@@ -11,3 +11,14 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 15px;
 }
+
+@media screen and (max-width: 425px)
+{
+  .elements
+  {
+    grid-template-columns: 1fr;
+    margin-top: 36px;
+    max-width: 282px;
+    gap: 20px;
+  }
+}

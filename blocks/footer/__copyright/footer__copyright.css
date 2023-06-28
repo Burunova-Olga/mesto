@@ -4,4 +4,16 @@
   padding: 0;
 
   color: #545454;
+
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 100%;
+}
+
+@media screen and (max-width: 425px)
+{
+  .footer__copyright
+  {
+    font-size: 14px;
+  }
 }

@@ -4,12 +4,26 @@
   margin: auto 0 auto 30px;
 
   display: grid;
-  grid-template-rows: 1fr 24px;
-  grid-auto-rows: max-content max-content;
+  grid-template-columns: 1fr 24px;
+  grid-template-rows: max-content max-content;
   grid-template-areas:
     "title edit"
     "subtitle subtitle";
   row-gap: 16px;
   column-gap: 18px;
   align-items: end;
+}
+
+@media screen and (max-width: 425px)
+{
+  .profile__info
+  {
+    row-gap: 14px;
+    column-gap: 10px;
+
+    margin-top: 26px;
+    margin-right: 19px;
+
+    grid-template-columns: 1fr 18px;
+  }
 }
