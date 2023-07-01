@@ -12,7 +12,14 @@
   gap: 15px;
 }
 
-@media screen and (max-width: 425px)
+@media screen and (max-width: 900px)
+{
+  .elements
+  {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media screen and (max-width: 600px)
 {
   .elements
   {

@@ -1,0 +1,41 @@
+.popup__close
+{
+  padding: 0;
+  margin: 0;
+
+  width: 32px;
+  height: 32px;
+
+  position: absolute;
+  top: calc((100vh - 330px)/2 - 32px);
+  right: calc((100% - 430px)/2 - 32px);
+
+  border: 0;
+
+  background-color: #000000;
+  background-image: url(../../../images/close_icon.svg);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+@media screen and (max-width: 530px)
+{
+  .popup__close
+  {
+    right: calc((100% - 430px)/2);
+    top: calc((100vh - 330px)/2 - 32px - 16px);
+  }
+}
+
+@media screen and (max-width: 460px)
+{
+  .popup__close
+  {
+    right: calc((100% - 282px)/2);
+    top: calc((100vh - 322px)/2 - 20px - 16px);
+
+    width: 20px;
+    height: 20px;
+  }
+}

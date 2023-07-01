@@ -1,0 +1,22 @@
+.popup__container
+{
+  /* form.display = block */
+  margin: auto;
+  padding: 0;
+
+  width: 430px;
+  height: 330px;
+
+  background-color: #ffffff;
+  border-radius: 10px;
+}
+
+@media screen and (max-width: 460px)
+{
+  .popup__container
+  {
+    margin: auto;
+    width: 282px;
+    height: 322px;
+  }
+}
