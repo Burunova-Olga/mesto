@@ -1,4 +1,4 @@
-.profile__title
+.profile__name
 {
   grid-area: title;
 
@@ -12,7 +12,7 @@
 
 @media screen and (max-width: 425px)
 {
-  .profile__title
+  .profile__name
   {
     font-size: 27px;
     line-height: 100%;
