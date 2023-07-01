@@ -4,11 +4,11 @@
   margin: auto 0 auto 30px;
 
   display: grid;
-  grid-template-columns: 1fr 24px;
+  grid-template-columns: max-content 24px 1fr;
   grid-template-rows: max-content max-content;
   grid-template-areas:
-    "title edit"
-    "subtitle subtitle";
+    "title edit ."
+    "subtitle subtitle subtitle";
   row-gap: 16px;
   column-gap: 18px;
   align-items: end;
