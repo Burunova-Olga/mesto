@@ -8,6 +8,8 @@
 
   height: 50px;
   width: 358px;
+
+  transition: opacity 0.5s linear;
 }
 
 @media screen and (max-width: 460px)
@@ -18,4 +20,9 @@
     height: 46px;
     width: 238px;
   }
+}
+
+.popup__submit:hover
+{
+  opacity: 0.8;
 }

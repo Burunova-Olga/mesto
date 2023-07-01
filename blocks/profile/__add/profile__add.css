@@ -1,4 +1,4 @@
-.profile__btnAdd
+.profile__add
 {
   padding: 0;
   margin: 0;
@@ -18,7 +18,7 @@
 
 @media screen and (max-width: 425px)
 {
-  .profile__btnAdd
+  .profile__add
   {
     margin: 36px auto 0;
     width: 100%;

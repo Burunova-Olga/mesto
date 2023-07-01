@@ -13,21 +13,10 @@
   -ms-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
 }
-/*
-.input[type="checkbox"]
-{
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip-path: inset(0 0 0 0);
-}
-*/
 
+/*
 *
 {
   border: dashed 1px blue;
 }
-
-
-
+*/

@@ -1,4 +1,4 @@
-let btnEdit = document.querySelector('.profile__btnEdit');
+let btnEdit = document.querySelector('.profile__edit');
 
 let popup = document.querySelector('.popup');
 let formElement = popup.querySelector('.popup__container');
@@ -6,7 +6,7 @@ let nameInput = popup.querySelector('.popup__name');
 let jobInput = popup.querySelector('.popup__description');
 let btnClose = popup.querySelector('.popup__close');
 
-let btnAdd = document.querySelector('.profile__btnAdd');
+let btnAdd = document.querySelector('.profile__add');
 
 btnEdit.addEventListener('click', showPopup);
 btnClose.addEventListener('click', hidePopup);

@@ -19,77 +19,88 @@
       <img src="images/profile-image.jpg" class="profile__image" alt="Аватар">
       <div class="profile__info">
         <h1 class="block profile__name">Жак-Ив Кусто</h1>
-        <button class="profile__btnEdit"></button>
+        <button class="button profile__edit"></button>
         <h2 class="block profile__description">Исследователь океана</h2>
       </div>
-      <button class="profile__btnAdd"></button>
+      <button class="button profile__add"></button>
     </section>
 
     <div class="popup">
       <form class='popup__container'>
           <h3 class="popup__title">Редактировать профиль</h3>
-          <input type="text" placeholder="Ваше имя" class="popup__name" value="Жак-Ив Кусто" required>
+          <input type="text" placeholder="Ваше имя" class="popup__name" name="input-name" value="Жак-Ив Кусто" required>
           <div class="popup__line"></div>
-          <input type="text"  placeholder='Краткая информация' class="popup__description" value="Исследователь океана" required>
+          <input type="text" placeholder='Краткая информация' class="popup__description" name="input-descr" value="Исследователь океана" required>
           <div class="popup__line"></div>
           <input type="submit" class="popup__submit" value="Сохранить">
       </form>
-      <button class="popup__close"></button>
+      <button class="button popup__close"></button>
     </div>
 
     <section class="elements">
       <figure class="element">
-        <img src="images/place-1.jpg" class="element__image" alt="Карачаевск">
-        <figcaption class="element__caption">
-          <h3 class="block element__text">Карачаевск</h3>
-          <button class="element__like"></button>
-          <!--
-          <h3 for="like">Карачаевск</h3>
-          <label>
-            <input type="checkbox" id="like" name="like" class="like">
-            <span class="visible-checkbox"></span>
-          </label>
-          -->
-        </figcaption>
-      </figure>
-
-      <figure class="element">
-        <img src="images/place-2.jpg" class="element__image" alt="Гора Эльбрус">
-        <figcaption class="element__caption">
-          <h3 class="block element__text">Гора Эльбрус</h3>
-          <button class="element__like"></button>
-        </figcaption>
-      </figure>
-
-      <figure class="element">
-        <img src="images/place-3.jpg" class="element__image" alt="Донбай">
-        <figcaption class="element__caption">
-          <h3 class="block element__text">Донбай</h3>
-          <button class="element__like"></button>
-        </figcaption>
-      </figure>
-
-      <figure class="element">
-        <img src="images/place-2.jpg" class="element__image" alt="Гора Эльбрус">
-        <figcaption class="element__caption">
-          <h3 class="block element__text">Гора Эльбрус</h3>
-          <button class="element__like"></button>
-        </figcaption>
-      </figure>
-
-      <figure class="element">
-        <img src="images/place-3.jpg" class="element__image" alt="Донбай">
-        <figcaption class="element__caption">
-          <h3 class="block element__text">Донбай</h3>
-          <button class="element__like"></button>
-        </figcaption>
-      </figure>
-
-      <figure class="element">
         <img src="images/place-1.jpg" class="element__image" alt="Карачаево-Черкесия">
         <figcaption class="element__caption">
-          <h3 class="block element__text">Карачаево-Черкесия</h3>
-          <button class="element__like"></button>
+          <h3 class="element__text">Карачаево-Черкесия</h3>
+          <label class="like">
+            <input type="checkbox" class="like__invisible" name="input-like">
+            <span class="block like__visible"></span>
+          </label>
+        </figcaption>
+      </figure>
+
+      <figure class="element">
+        <img src="images/place-2.jpg" class="element__image" alt="Гора Эльбрус">
+        <figcaption class="element__caption">
+          <h3 class="block element__text">Гора Эльбрус</h3>
+          <label class="like">
+            <input type="checkbox" class="like__invisible" name="input-like">
+            <span class="block like__visible"></span>
+          </label>
+        </figcaption>
+      </figure>
+
+      <figure class="element">
+        <img src="images/place-3.jpg" class="element__image" alt="Донбай">
+        <figcaption class="element__caption">
+          <h3 class="block element__text">Донбай</h3>
+          <label class="like">
+            <input type="checkbox" class="like__invisible" name="input-like">
+            <span class="block like__visible"></span>
+          </label>
+        </figcaption>
+      </figure>
+
+      <figure class="element">
+        <img src="images/place-4.jpg" class="element__image" alt="Хибины">
+        <figcaption class="element__caption">
+          <h3 class="block element__text">Хибины</h3>
+          <label class="like">
+            <input type="checkbox" class="like__invisible" name="input-like">
+            <span class="block like__visible"></span>
+          </label>
+        </figcaption>
+      </figure>
+
+      <figure class="element">
+        <img src="images/place-6.jpg" class="element__image" alt="Памуккале">
+        <figcaption class="element__caption">
+          <h3 class="block element__text">Памуккале</h3>
+          <label class="like">
+            <input type="checkbox" class="like__invisible" name="input-like">
+            <span class="block like__visible"></span>
+          </label>
+        </figcaption>
+      </figure>
+
+      <figure class="element">
+        <img src="images/place-8.jpg" class="element__image" alt="Кубинка, Сима">
+        <figcaption class="element__caption">
+          <h3 class="block element__text">Кубинка, Сима</h3>
+          <label class="like">
+            <input type="checkbox" class="like__invisible" name="input-like">
+            <span class="block like__visible"></span>
+          </label>
         </figcaption>
       </figure>
     </section>
