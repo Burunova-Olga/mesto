@@ -14,6 +14,9 @@ formElement.addEventListener('submit', handleFormSubmit);
 function showPopup()
 {
   popup.classList.add("popup_opened");
+
+  nameInput.value = document.querySelector('.profile__name').textContent;
+  jobInput.value = document.querySelector('.profile__description').textContent;
 }
 
 function hidePopup()
