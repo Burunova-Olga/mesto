@@ -11,7 +11,6 @@
 <body class="page">
   <header class="header">
     <img src="images/header-logo.svg" alt="Логотип" class="header__logo">
-    <div class="header__line"></div>
   </header>
 
   <main>
@@ -26,83 +25,73 @@
     </section>
 
     <div class="popup">
-      <form class='popup__container'>
+      <div class='popup__container'>
           <h3 class="popup__title">Редактировать профиль</h3>
-          <input type="text" placeholder="Ваше имя" class="popup__name" name="input-name" value="Жак-Ив Кусто" required>
-          <div class="popup__line"></div>
-          <input type="text" placeholder='Краткая информация' class="popup__description" name="input-descr" value="Исследователь океана" required>
-          <div class="popup__line"></div>
-          <input type="submit" class="popup__submit" value="Сохранить">
-      </form>
+          <form name="form-profile" class="form-profile">
+            <input type="text" class="form-profile__input form-profile__input_type_name" name="input-name" placeholder="Ваше имя" value="Жак-Ив Кусто" required>
+            <input type="text" class="form-profile__input form-profile__input_type_description" name="input-descr" placeholder='Краткая информация' value="Исследователь океана" required>
+            <input type="submit" class="form-profile__submit" value="Сохранить">
+          </form>
+      </div>
       <button class="button popup__close" aria-label="Закрыть без сохранения"></button>
     </div>
 
     <section class="elements">
-      <figure class="element">
+      <div class="element">
         <img src="images/place-1.jpg" class="element__image" alt="Карачаево-Черкесия">
-        <figcaption class="element__caption">
-          <h3 class="element__text">Карачаево-Черкесия</h3>
+        <div class="element__caption">
+          <h3 class="block element__text">Карачаево-Черкесия</h3>
+          <button class="element__like" aria-label="Поставить лайк"></button>
+          <!--
+          Так красивее и логичнее. Не буду удалять, пусть хоть в комментариях душу греет
+
           <label class="like" aria-label="Поставить лайк">
             <input aria-hidden="true" type="checkbox" class="like__invisible" name="input-like">
             <span aria-hidden="true" class="block like__visible"></span>
           </label>
-        </figcaption>
-      </figure>
+          -->
+        </div>
+      </div>
 
-      <figure class="element">
+      <div class="element">
         <img src="images/place-2.jpg" class="element__image" alt="Гора Эльбрус">
-        <figcaption class="element__caption">
+        <div class="element__caption">
           <h3 class="block element__text">Гора Эльбрус</h3>
-          <label class="like" aria-label="Поставить лайк">
-            <input aria-hidden="true" type="checkbox" class="like__invisible" name="input-like">
-            <span aria-hidden="true" class="block like__visible"></span>
-          </label>
-        </figcaption>
-      </figure>
+          <button class="element__like" aria-label="Поставить лайк"></button>
+        </div>
+      </div>
 
-      <figure class="element">
+      <div class="element">
         <img src="images/place-3.jpg" class="element__image" alt="Донбай">
-        <figcaption class="element__caption">
+        <div class="element__caption">
           <h3 class="block element__text">Донбай</h3>
-          <label class="like" aria-label="Поставить лайк">
-            <input aria-hidden="true" type="checkbox" class="like__invisible" name="input-like">
-            <span aria-hidden="true" class="block like__visible"></span>
-          </label>
-        </figcaption>
-      </figure>
+          <button class="element__like" aria-label="Поставить лайк"></button>
+        </div>
+      </div>
 
-      <figure class="element">
+      <div class="element">
         <img src="images/place-4.jpg" class="element__image" alt="Хибины">
-        <figcaption class="element__caption">
+        <div class="element__caption">
           <h3 class="block element__text">Хибины</h3>
-          <label class="like" aria-label="Поставить лайк">
-            <input aria-hidden="true" type="checkbox" class="like__invisible" name="input-like">
-            <span aria-hidden="true" class="block like__visible"></span>
-          </label>
-        </figcaption>
-      </figure>
+          <button class="element__like" aria-label="Поставить лайк"></button>
+        </div>
+      </div>
 
-      <figure class="element">
+      <div class="element">
         <img src="images/place-6.jpg" class="element__image" alt="Памуккале">
-        <figcaption class="element__caption">
+        <div class="element__caption">
           <h3 class="block element__text">Памуккале</h3>
-          <label class="like" aria-label="Поставить лайк">
-            <input aria-hidden="true" type="checkbox" class="like__invisible" name="input-like">
-            <span aria-hidden="true" class="block like__visible"></span>
-          </label>
-        </figcaption>
-      </figure>
+          <button class="element__like" aria-label="Поставить лайк"></button>
+        </div>
+      </div>
 
-      <figure class="element">
+      <div class="element">
         <img src="images/place-8.jpg" class="element__image" alt="Кубинка, Сима">
-        <figcaption class="element__caption">
+        <div class="element__caption">
           <h3 class="block element__text">Кубинка, Сима</h3>
-          <label class="like" aria-label="Поставить лайк">
-            <input aria-hidden="true" type="checkbox" class="like__invisible" name="input-like">
-            <span aria-hidden="true" class="block like__visible"></span>
-          </label>
-        </figcaption>
-      </figure>
+          <button class="element__like" aria-label="Поставить лайк"></button>
+        </div>
+      </div>
     </section>
   </main>
 

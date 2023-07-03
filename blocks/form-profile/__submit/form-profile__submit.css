@@ -1,4 +1,4 @@
-.popup__submit
+.form-profile__submit
 {
   background-color: #000000;
   color: #FFFFFF;
@@ -14,7 +14,7 @@
 
 @media screen and (max-width: 460px)
 {
-  .popup__submit
+  .form-profile__submit
   {
     margin: 45px 22px 25px;
     height: 46px;
@@ -22,7 +22,7 @@
   }
 }
 
-.popup__submit:hover
+.form-profile__submit:hover
 {
   opacity: 0.8;
 }

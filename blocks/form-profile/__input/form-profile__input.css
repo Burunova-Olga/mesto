@@ -1,0 +1,33 @@
+.form-profile__input
+{
+  margin: 30px 36px 0;
+  padding: 0 0 13px;
+
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 100%;
+  min-height: 27px;
+  width: calc(430px - 2*36px);
+
+  border: 0;
+  border-bottom: 1px solid #000000;
+}
+
+.form-profile__input:first-child
+{
+  margin-top: 54px;
+}
+
+@media screen and (max-width: 460px)
+{
+  .form-profile__input
+  {
+    margin: 30px 22px 0;
+    width: calc(282px - 2*22px);
+  }
+
+  .form-profile__input:first-child
+  {
+    margin-top: 70px;
+  }
+}

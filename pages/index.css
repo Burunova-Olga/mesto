@@ -8,7 +8,6 @@
 
 /* Header */
 @import url(../blocks/header/header.css);
-@import url(../blocks/header/__line/header__line.css);
 @import url(../blocks/header/__logo/header__logo.css);
 
 /* Profile */
@@ -26,21 +25,19 @@
 @import url(../blocks/popup/__close/popup__close.css);
 @import url(../blocks/popup/__container/popup__container.css);
 @import url(../blocks/popup/__title/popup__title.css);
-@import url(../blocks/popup/__name/popup__name.css);
-@import url(../blocks/popup/__line/popup__line.css);
-@import url(../blocks/popup/__description/popup__description.css);
-@import url(../blocks/popup/__submit/popup__submit.css);
+
+/* Form */
+@import url(../blocks/form-profile/__input/form-profile__input.css);
+@import url(../blocks/form-profile/__submit/form-profile__submit.css);
 
 /* Element */
 @import url(../blocks/elements/elements.css);
 @import url(../blocks/element/element.css);
 @import url(../blocks/element/__image/element__image.css);
 @import url(../blocks/element/__caption/element__caption.css);
+@import url(../blocks/element/__like/element__like.css);
+@import url(../blocks/element/__like/_checked/element__like_checked.css);
 @import url(../blocks/element/__text/element__text.css);
-
-/* Like */
-@import url(../blocks/like/__visible/like__visible.css);
-@import url(../blocks/like/__invisible/like__invisible.css);
 
 /* Footer */
 @import url(../blocks/footer/footer.css);

@@ -1,12 +1,11 @@
+/* Изменение данных профиля */
 let btnEdit = document.querySelector('.profile__edit');
 
 let popup = document.querySelector('.popup');
-let formElement = popup.querySelector('.popup__container');
-let nameInput = popup.querySelector('.popup__name');
-let jobInput = popup.querySelector('.popup__description');
+let formElement = popup.querySelector('.form-profile');
+let nameInput = formElement.querySelector('.form-profile__input_type_name');
+let jobInput = formElement.querySelector('.form-profile__input_type_description');
 let btnClose = popup.querySelector('.popup__close');
-
-let btnAdd = document.querySelector('.profile__add');
 
 btnEdit.addEventListener('click', showPopup);
 btnClose.addEventListener('click', hidePopup);
@@ -30,4 +29,21 @@ function handleFormSubmit (evt)
     document.querySelector('.profile__description').textContent = jobInput.value;
 
     hidePopup();
+}
+
+/* Добавление нового элемента*/
+let btnAdd = document.querySelector('.profile__add');
+
+/* Постановка лайка */
+let btnLike = document.querySelector('.element__like');
+btnLike.addEventListener('click', setLike);
+
+function setLike (evt)
+{
+  if (btnLike.classList.contains('element__like_checked'))
+    btnLike.classList.remove('element__like_checked');
+  else
+    btnLike.classList.add('element__like_checked');
+
+  /*  btnLike.classList.toggle('.element__like_checked');*/
 }

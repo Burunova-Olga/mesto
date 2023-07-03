@@ -6,10 +6,12 @@
   width: 282px;
   height: 361px;
   border-radius: 10px;
-  overflow: hidden;
 
   background-color: #FFFFFF;
   color: #000000;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 
   justify-self:center;
 }
