@@ -10,7 +10,7 @@
   width: calc(430px - 2*36px);
 
   border: 0;
-  border-bottom: 1px solid #000000;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 .form-profile__input:first-child

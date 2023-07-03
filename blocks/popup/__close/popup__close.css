@@ -7,14 +7,14 @@
   height: 32px;
 
   position: absolute;
-  top: calc((100vh - 330px)/2 - 32px);
-  right: calc((100% - 430px)/2 - 32px);
+  top: calc(-32px - 8px);
+  right: calc(-32px - 8px);
 
   border: 0;
 
-  background-color: #000000;
   background-image: url(../../../images/close_icon.svg);
   background-size: contain;
+  background-color: rgba(0,0,0,0);
   background-position: center;
   background-repeat: no-repeat;
 }
@@ -23,8 +23,8 @@
 {
   .popup__close
   {
-    right: calc((100% - 430px)/2);
-    top: calc((100vh - 330px)/2 - 32px - 16px);
+    right: 0;
+    top: calc(-32px - 16px);
   }
 }
 
@@ -32,8 +32,7 @@
 {
   .popup__close
   {
-    right: calc((100% - 282px)/2);
-    top: calc((100vh - 322px)/2 - 20px - 16px);
+    top: calc(-20px - 16px);
 
     width: 20px;
     height: 20px;

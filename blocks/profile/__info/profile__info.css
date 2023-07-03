@@ -4,7 +4,6 @@
   margin: auto 0 auto 30px;
 
   display: grid;
-  overflow: hidden;
   grid-template-columns: fit-content(550px) 24px 1fr;
   grid-template-rows: max-content max-content;
   grid-template-areas:

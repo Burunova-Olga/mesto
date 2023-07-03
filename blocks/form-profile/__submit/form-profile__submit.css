@@ -9,6 +9,9 @@
   height: 50px;
   width: 358px;
 
+  border: none;
+  border-radius: 2px;
+
   transition: opacity 0.5s linear;
 }
 

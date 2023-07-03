@@ -38,15 +38,11 @@ function handleFormSubmit (evt)
 let btnAdd = document.querySelector('.profile__add');
 
 /* Постановка лайка */
-let btnLike = document.querySelector('.element__like');
-btnLike.addEventListener('click', setLike);
-
-function setLike (evt)
+let btnsLike = document.querySelectorAll('.element__like');
+for (let i=0; i<btnsLike.length; i++)
 {
-  if (btnLike.classList.contains('element__like_checked'))
-    btnLike.classList.remove('element__like_checked');
-  else
-    btnLike.classList.add('element__like_checked');
-
-  /*  btnLike.classList.toggle('.element__like_checked');*/
+  btnsLike[i].addEventListener('click', function()
+  {
+    btnsLike[i].classList.toggle('element__like_checked');
+  });
 }
