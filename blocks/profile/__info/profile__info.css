@@ -18,12 +18,17 @@
 {
   .profile__info
   {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+    "title"
+    "subtitle";
+
     row-gap: 14px;
-    column-gap: 10px;
+    column-gap: 0;
 
-    margin-top: 26px;
-    margin-right: 19px;
+    margin: 26px 0 auto;
+    max-width: calc(100% - 2*28px);
 
-    grid-template-columns: 1fr 18px;
+    grid-template-columns: 1fr;
   }
 }

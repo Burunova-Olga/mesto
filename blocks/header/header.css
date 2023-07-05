@@ -16,6 +16,6 @@
   .header
   {
     margin-top: 28px;
-    width: 56px;
+    max-width: 320px;
   }
 }

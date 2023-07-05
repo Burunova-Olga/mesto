@@ -7,8 +7,7 @@
   height: 32px;
 
   position: absolute;
-  top: calc(-32px - 8px);
-  right: calc(-32px - 8px);
+  transform: translate(calc(430px + 8px), calc(-32px - 8px));
 
   border: 0;
 
@@ -23,8 +22,7 @@
 {
   .popup__close
   {
-    right: 0;
-    top: calc(-32px - 16px);
+    transform: translate(calc(430px - 32px), calc(-32px - 8px));
   }
 }
 
@@ -32,7 +30,7 @@
 {
   .popup__close
   {
-    top: calc(-20px - 16px);
+    transform: translate(calc(282px - 20px), calc(-20px - 16px));
 
     width: 20px;
     height: 20px;
