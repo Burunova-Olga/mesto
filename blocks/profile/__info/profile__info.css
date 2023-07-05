@@ -25,7 +25,5 @@
 
     margin: 26px 0 auto;
     max-width: calc(100% - 2*28px);
-
-    grid-template-columns: 1fr;
   }
 }
