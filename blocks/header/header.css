@@ -1,10 +1,9 @@
 .header
 {
-  padding: 0;
+  padding: 0 0 41px;
   margin: 45px auto 0;
 
   max-width: 880px;
-  height: 74px;
 
   display: flex;
   flex-direction: column;
