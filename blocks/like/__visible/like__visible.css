@@ -1,5 +1,4 @@
-.like__visible
-{
+.like__visible {
   display: inline-block;
   vertical-align: middle;
 
@@ -19,7 +18,6 @@
   transition: opacity 0.5s linear;
 }
 
-.like__visible:hover
-{
+.like__visible:hover {
   opacity: 0.5;
 }

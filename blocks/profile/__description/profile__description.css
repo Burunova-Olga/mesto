@@ -1,5 +1,4 @@
-.profile__description
-{
+.profile__description {
   padding: 0;
   margin: 0;
 
@@ -11,10 +10,8 @@
   line-height: 21.78px;
 }
 
-@media screen and (max-width: 425px)
-{
-  .profile__description
-  {
+@media screen and (max-width: 425px) {
+  .profile__description {
     text-align: center;
     font-size: 14px;
   }

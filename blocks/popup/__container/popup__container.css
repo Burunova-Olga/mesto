@@ -1,5 +1,4 @@
-.popup__container
-{
+.popup__container {
   /* form.display = block */
   margin: auto;
   padding: 0;
@@ -12,10 +11,8 @@
   position: relative;
 }
 
-@media screen and (max-width: 460px)
-{
-  .popup__container
-  {
+@media screen and (max-width: 460px) {
+  .popup__container {
     margin: auto;
     width: 282px;
   }

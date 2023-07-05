@@ -1,5 +1,4 @@
-.profile__edit
-{
+.profile__edit {
   grid-area: edit;
   background-image: url(../../../images/edit-btn.svg);
   background-size: contain;
@@ -13,16 +12,14 @@
   border: 0;
 }
 
-@media screen and (max-width: 425px)
-{
-  .profile__edit
-  {
+@media screen and (max-width: 425px) {
+  .profile__edit {
     grid-area: title;
     justify-self: end;
     width: 18px;
     height: 18px;
 
     position: relative;
-    transform: translate(-28px,0);
+    transform: translate(-28px, 0);
   }
 }

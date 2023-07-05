@@ -1,5 +1,4 @@
-.popup__close
-{
+.popup__close {
   padding: 0;
   margin: 0;
 
@@ -18,18 +17,14 @@
   background-repeat: no-repeat;
 }
 
-@media screen and (max-width: 530px)
-{
-  .popup__close
-  {
+@media screen and (max-width: 530px) {
+  .popup__close {
     transform: translate(calc(430px - 32px), calc(-32px - 8px));
   }
 }
 
-@media screen and (max-width: 460px)
-{
-  .popup__close
-  {
+@media screen and (max-width: 460px) {
+  .popup__close {
     transform: translate(calc(282px - 20px), calc(-20px - 16px));
 
     width: 20px;

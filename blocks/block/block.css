@@ -1,5 +1,4 @@
-.block
-{
+.block {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
