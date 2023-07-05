@@ -5,7 +5,7 @@
   opacity: 0;
 }
 
-.like__invisible:checked + .like__visible
+.like__invisible:checked+.like__visible
 {
   background-image: url(../../../images/like_active.svg);
 }

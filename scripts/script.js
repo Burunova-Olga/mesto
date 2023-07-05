@@ -24,14 +24,14 @@ function hidePopup()
   popup.classList.remove("popup_opened");
 }
 
-function handleFormSubmit (evt)
+function handleFormSubmit(evt)
 {
-    evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
+  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
 
-    document.querySelector('.profile__name').textContent = nameInput.value;
-    document.querySelector('.profile__description').textContent = jobInput.value;
+  document.querySelector('.profile__name').textContent = nameInput.value;
+  document.querySelector('.profile__description').textContent = jobInput.value;
 
-    hidePopup();
+  hidePopup();
 }
 
 /* Добавление нового элемента*/
@@ -39,9 +39,9 @@ let btnAdd = document.querySelector('.profile__add');
 
 /* Постановка лайка */
 let btnsLike = document.querySelectorAll('.element__like');
-for (let i=0; i<btnsLike.length; i++)
+for (let i = 0; i < btnsLike.length; i++)
 {
-  btnsLike[i].addEventListener('click', function()
+  btnsLike[i].addEventListener('click', function ()
   {
     btnsLike[i].classList.toggle('element__like_checked');
   });
