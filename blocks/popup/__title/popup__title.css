@@ -1,4 +1,5 @@
-.popup__title {
+.popup__title
+{
   color: #000000;
   margin: 34px 36px 0;
   padding: 0;
@@ -8,8 +9,10 @@
   line-height: 100%;
 }
 
-@media screen and (max-width: 460px) {
-  .popup__title {
+@media screen and (max-width: 460px)
+{
+  .popup__title
+  {
     margin: 25px 22px 0;
     font-size: 18px;
   }

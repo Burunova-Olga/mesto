@@ -1,3 +1,4 @@
-.element__like_checked {
+.element__like_checked
+{
   background-image: url(../../../../images/like_active.svg);
 }

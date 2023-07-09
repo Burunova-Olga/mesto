@@ -1,4 +1,5 @@
-.form-profile__submit {
+.form-profile__submit
+{
   background-color: #000000;
   color: #FFFFFF;
 
@@ -15,14 +16,17 @@
   transition: opacity 0.5s linear;
 }
 
-@media screen and (max-width: 460px) {
-  .form-profile__submit {
+@media screen and (max-width: 460px)
+{
+  .form-profile__submit
+  {
     margin: 45px 22px 25px;
     height: 46px;
     width: 238px;
   }
 }
 
-.form-profile__submit:hover {
+.form-profile__submit:hover
+{
   opacity: 0.8;
 }

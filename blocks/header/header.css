@@ -1,4 +1,5 @@
-.header {
+.header
+{
   padding: 0 0 41px;
   margin: 45px auto 0;
 
@@ -10,8 +11,10 @@
   border-bottom: 1px solid rgba(84, 84, 84, 0.7);
 }
 
-@media screen and (max-width: 425px) {
-  .header {
+@media screen and (max-width: 425px)
+{
+  .header
+  {
     margin-top: 28px;
     max-width: 320px;
   }
