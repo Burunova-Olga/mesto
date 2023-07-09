@@ -34,9 +34,6 @@ function handleFormSubmit(evt)
   hidePopup();
 }
 
-/* Добавление нового элемента*/
-let btnAdd = document.querySelector('.profile__add');
-
 /* Постановка лайка */
 let btnsLike = document.querySelectorAll('.element__like');
 for (let i = 0; i < btnsLike.length; i++)
@@ -46,3 +43,53 @@ for (let i = 0; i < btnsLike.length; i++)
     btnsLike[i].classList.toggle('element__like_checked');
   });
 }
+
+/* Добавление нового элемента*/
+let btnAdd = document.querySelector('.profile__add');
+let elementsContainer = document.querySelector('.elements');
+
+const initialCards = [
+  {
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+  },
+  {
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+  },
+  {
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+  },
+  {
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+  },
+  {
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+  },
+  {
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  }
+];
+
+function printElement(name, link)
+{
+  const elementTemplate = document.querySelector('#elementTemplate').content;
+  let element = elementTemplate.querySelector('.element').cloneNode(true);
+
+  let image = element.querySelector('.element__image');
+  image.src = link;
+  image.alt = name;
+  console.log(element);
+  element.querySelector('.element__text').textContent = name;
+
+  elementsContainer.append(element);
+}
+
+initialCards.forEach(element =>
+{
+  printElement(element.name, element.link);
+});
