@@ -101,7 +101,6 @@ initialCards.forEach(element =>
   elementsContainer.append(elementHTML);
 });
 
-
 //----------------------------------------------------
 //            Добавление нового элемента
 //----------------------------------------------------
@@ -143,3 +142,10 @@ function handleFormSubmitAdd(evt)
 let btnsLike = document.querySelectorAll('.element__like');
 for (let i = 0; i < btnsLike.length; i++)
   btnsLike[i].addEventListener('click', () => btnsLike[i].classList.toggle('element__like_checked'));
+
+//----------------------------------------------------
+//                 Удаление места
+//----------------------------------------------------
+let btnsDelete = document.querySelectorAll('.element__delete');
+for (let i = 0; i < btnsDelete.length; i++)
+  btnsDelete[i].addEventListener('click', () => btnsDelete[i].parentElement.remove());
