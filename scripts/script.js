@@ -1,54 +1,59 @@
-/* Изменение данных профиля */
-let btnEdit = document.querySelector('.profile__edit');
-
-let popup = document.querySelector('.popup');
-let formElement = popup.querySelector('.form-profile');
-let nameInput = formElement.querySelector('.form-profile__input_type_name');
-let jobInput = formElement.querySelector('.form-profile__input_type_description');
-let btnClose = popup.querySelector('.popup__close');
-
-btnEdit.addEventListener('click', showPopup);
-btnClose.addEventListener('click', hidePopup);
-formElement.addEventListener('submit', handleFormSubmit);
-
-function showPopup()
+// Открытие popup
+function showPopup(_popup)
 {
-  popup.classList.add("popup_opened");
+  _popup.classList.add("popup_opened");
+}
+
+// Нажатие Close
+let btnsClose = document.querySelectorAll('.popup__close');
+for (let i = 0; i < btnsClose.length; i++)
+  btnsClose[i].addEventListener('click', () => hidePopup(btnsClose[i].parentElement.parentElement));
+
+// Закрытие popup
+function hidePopup(_popup)
+{
+  _popup.classList.remove("popup_opened");
+}
+
+//----------------------------------------------------
+//            Изменение данных профиля
+//----------------------------------------------------
+let btnEdit = document.querySelector('.profile__edit');
+btnEdit.addEventListener('click', showPopupEdit);
+
+let popupProfile = document.querySelector('#popup-profile');
+let formElementProfile = popupProfile.querySelector('#form-profile');
+let nameInput = formElementProfile.querySelector('#input-name');
+let descriptionInput = formElementProfile.querySelector('#input-description');
+
+formElementProfile.addEventListener('submit', handleFormSubmit);
+
+// Открыть форму редактирования профиля
+function showPopupEdit()
+{
+  showPopup(popupProfile);
 
   nameInput.value = document.querySelector('.profile__name').textContent;
-  jobInput.value = document.querySelector('.profile__description').textContent;
+  descriptionInput.value = document.querySelector('.profile__description').textContent;
 }
 
-function hidePopup()
-{
-  popup.classList.remove("popup_opened");
-}
-
+// Внести на страницу новые данные профиля
 function handleFormSubmit(evt)
 {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
 
   document.querySelector('.profile__name').textContent = nameInput.value;
-  document.querySelector('.profile__description').textContent = jobInput.value;
+  document.querySelector('.profile__description').textContent = descriptionInput.value;
 
-  hidePopup();
+  hidePopup(popupProfile);
 }
 
-/* Постановка лайка */
-let btnsLike = document.querySelectorAll('.element__like');
-for (let i = 0; i < btnsLike.length; i++)
-{
-  btnsLike[i].addEventListener('click', function ()
-  {
-    btnsLike[i].classList.toggle('element__like_checked');
-  });
-}
-
-/* Добавление нового элемента*/
-let btnAdd = document.querySelector('.profile__add');
+//----------------------------------------------------
+//                Массив картинок
+//----------------------------------------------------
 let elementsContainer = document.querySelector('.elements');
 
-const initialCards = [
+let initialCards = [
   {
     name: 'Архыз',
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
@@ -75,21 +80,66 @@ const initialCards = [
   }
 ];
 
+// Конструкция из шаблона
 function printElement(name, link)
 {
   const elementTemplate = document.querySelector('#elementTemplate').content;
-  let element = elementTemplate.querySelector('.element').cloneNode(true);
+  let elementHTML = elementTemplate.querySelector('.element').cloneNode(true);
 
-  let image = element.querySelector('.element__image');
+  let image = elementHTML.querySelector('.element__image');
   image.src = link;
   image.alt = name;
-  console.log(element);
-  element.querySelector('.element__text').textContent = name;
+  elementHTML.querySelector('.element__text').textContent = name;
 
-  elementsContainer.append(element);
+  return elementHTML;
 }
 
+// Добавление массива фотографий на форму
 initialCards.forEach(element =>
 {
-  printElement(element.name, element.link);
+  let elementHTML = printElement(element.name, element.link);
+  elementsContainer.append(elementHTML);
 });
+
+
+//----------------------------------------------------
+//            Добавление нового элемента
+//----------------------------------------------------
+let btnAdd = document.querySelector('.profile__add');
+btnAdd.addEventListener('click', () => showPopup(popupPlace));
+
+let popupPlace = document.querySelector('#popup-place');
+let formElementPlace = popupPlace.querySelector('#form-place');
+let placeInput = formElementPlace.querySelector('#input-place');
+let linkInput = formElementPlace.querySelector('#input-link');
+
+formElementPlace.addEventListener('submit', handleFormSubmitAdd);
+
+// Добавление пользовательской фото на страницу
+function handleFormSubmitAdd(evt)
+{
+  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
+
+  initialCards.unshift(
+  {
+    name: placeInput.value,
+    link: linkInput.value
+  });
+
+  let elementHTML = printElement(placeInput.value, linkInput.value);
+
+  // Настройка жмяка лайка
+  let like = elementHTML.querySelector('.element__like');
+  like.addEventListener('click', () => like.classList.toggle('element__like_checked'));
+
+  elementsContainer.prepend(elementHTML);
+
+  hidePopup(popupPlace);
+}
+
+//----------------------------------------------------
+//                  Постановка лайка
+//----------------------------------------------------
+let btnsLike = document.querySelectorAll('.element__like');
+for (let i = 0; i < btnsLike.length; i++)
+  btnsLike[i].addEventListener('click', () => btnsLike[i].classList.toggle('element__like_checked'));
