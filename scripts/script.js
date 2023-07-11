@@ -7,7 +7,7 @@ function showPopup(_popup)
 // Нажатие Close
 let btnsClose = document.querySelectorAll('.close__button');
 for (let i = 0; i < btnsClose.length; i++)
-  btnsClose[i].addEventListener('click', () => hidePopup(btnsClose[i].parentElement.parentElement.parentElement));
+  btnsClose[i].addEventListener('click', () => hidePopup(btnsClose[i].closest(".popup")));
 
 // Закрытие popup
 function hidePopup(_popup)
@@ -21,12 +21,12 @@ function hidePopup(_popup)
 let btnEdit = document.querySelector('.profile__edit');
 btnEdit.addEventListener('click', showPopupEdit);
 
-let popupProfile = document.querySelector('#popup-profile');
-let formElementProfile = popupProfile.querySelector('#form-profile');
+let popupProfile = document.querySelector('.popup_type_profile');
+let formElementProfile = popupProfile.querySelector('.form-popup_type_profile');
 let nameInput = formElementProfile.querySelector('#input-name');
 let descriptionInput = formElementProfile.querySelector('#input-description');
-let nameOutput = formElementProfile.querySelector('.profile__name');
-let descriptionOutput = formElementProfile.querySelector('.profile__description');
+let nameOutput = document.querySelector('.profile__name');
+let descriptionOutput = document.querySelector('.profile__description');
 
 formElementProfile.addEventListener('submit', handleFormSubmit);
 
@@ -86,7 +86,7 @@ let initialCards =
 // Конструкция из шаблона
 function printElement(name, link)
 {
-  const elementTemplate = document.querySelector('#elementTemplate').content;
+  const elementTemplate = document.querySelector('.elementTemplate').content;
   let elementHTML = elementTemplate.querySelector('.element').cloneNode(true);
 
   let image = elementHTML.querySelector('.element__image');
@@ -103,44 +103,6 @@ initialCards.forEach(element =>
   let elementHTML = printElement(element.name, element.link);
   elementsContainer.append(elementHTML);
 });
-
-//----------------------------------------------------
-//            Добавление нового элемента
-//----------------------------------------------------
-let btnAdd = document.querySelector('.profile__add');
-btnAdd.addEventListener('click', () => showPopup(popupPlace));
-
-let popupPlace = document.querySelector('#popup-places');
-let formElementPlace = popupPlace.querySelector('#form-place');
-let placeInput = formElementPlace.querySelector('#input-place');
-let linkInput = formElementPlace.querySelector('#input-link');
-
-formElementPlace.addEventListener('submit', handleFormSubmitAdd);
-
-// Добавление пользовательской фото на страницу
-function handleFormSubmitAdd(evt)
-{
-  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-
-  initialCards.unshift(
-  {
-    name: placeInput.value,
-    link: linkInput.value
-  });
-
-  let elementHTML = printElement(placeInput.value, linkInput.value);
-
-  // Настройка эффектов
-  let like = elementHTML.querySelector('.element__like');
-  like.addEventListener('click', () => like.classList.toggle('element__like_checked'));
-
-  let zoom = elementHTML.querySelector('.element__zoom');
-  zoom.addEventListener('click', () => showPopupZoom(zoom.parentElement));
-
-  elementsContainer.prepend(elementHTML);
-
-  hidePopup(popupPlace);
-}
 
 //----------------------------------------------------
 //                  Постановка лайка
@@ -177,4 +139,48 @@ function showPopupZoom(_element)
   text.textContent = name.textContent;
 
   showPopup(popupZoom);
+}
+
+//----------------------------------------------------
+//            Добавление нового элемента
+//----------------------------------------------------
+let btnAdd = document.querySelector('.profile__add');
+btnAdd.addEventListener('click', () => showPopup(popupPlace));
+
+let popupPlace = document.querySelector('.popup_type_places');
+let formElementPlace = popupPlace.querySelector('.form-popup_type_place');
+let placeInput = formElementPlace.querySelector('#input-place');
+let linkInput = formElementPlace.querySelector('#input-link');
+
+formElementPlace.addEventListener('submit', handleFormSubmitAdd);
+
+// Добавление пользовательской фото на страницу
+function handleFormSubmitAdd(evt)
+{
+  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
+
+  initialCards.unshift(
+  {
+    name: placeInput.value,
+    link: linkInput.value
+  });
+
+  let elementHTML = printElement(placeInput.value, linkInput.value);
+
+  // Настройка эффектов
+  let like = elementHTML.querySelector('.element__like');
+  like.addEventListener('click', () => like.classList.toggle('element__like_checked'));
+
+  let zoom = elementHTML.querySelector('.element__zoom');
+  zoom.addEventListener('click', () => showPopupZoom(zoom.parentElement));
+
+  let del = elementHTML.querySelector('.element__delete');
+  del.addEventListener('click', () => del.parentElement.remove());
+
+  elementsContainer.prepend(elementHTML);
+
+  placeInput.value = "";
+  linkInput.value = "";
+
+  hidePopup(popupPlace);
 }

@@ -24,13 +24,13 @@
       <button type="button" class="button profile__add" aria-label="Добавить место"></button>
     </section>
 
-    <div class="popup" id="popup-profile">
+    <div class="popup popup_type_profile">
       <div class='popup__container'>
         <div class="close">
           <button type="button" class="button close__button" aria-label="Закрыть без сохранения"></button>
         </div>
         <h3 class="popup__title">Редактировать профиль</h3>
-        <form id="form-profile" class="form-popup">
+        <form class="form-popup form-popup_type_profile">
           <input type="text" class="form-popup__input form-popup__input_type_title" name="input-name" id="input-name"
             placeholder="Ваше имя" value="Жак-Ив Кусто" required>
           <input type="text" class="form-popup__input form-popup__input_type_subtitle" name="input-description"
@@ -40,13 +40,13 @@
       </div>
     </div>
 
-    <div class="popup" id="popup-places">
+    <div class="popup popup_type_places" id="popup-places">
       <div class='popup__container'>
         <div class="close">
           <button type="button" class="button close__button" aria-label="Закрыть без сохранения"></button>
         </div>
         <h3 class="popup__title">Новое место</h3>
-        <form id="form-place" class="form-popup">
+        <form class="form-popup form-popup_type_place">
           <input type="text" class="form-popup__input form-popup__input_type_title" name="input-place" id="input-place"
             placeholder="Название" required>
           <input type="text" class="form-popup__input form-popup__input_type_subtitle" name="input-link" id="input-link"
@@ -64,7 +64,7 @@
     <p class="footer__copyright">© 2023 Mesto Russia</p>
   </footer>
 
-  <template id="elementTemplate">
+  <template class="elementTemplate">
     <div class="element">
       <button type="button" class="element__zoom" aria-label="Открыть оригинал фото">
         <img src="" class="element__image" alt="">
