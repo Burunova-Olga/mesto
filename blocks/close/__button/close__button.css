@@ -1,4 +1,4 @@
-.popup__close
+.close__button
 {
   padding: 0;
   margin: 0;
@@ -7,8 +7,8 @@
   height: 32px;
 
   position: absolute;
-  transform: translate(calc(430px + 8px), calc(-32px - 8px));
-
+  right: 0;
+  transform: translate(calc(32px + 8px), calc(-32px - 8px));
   border: 0;
 
   background-image: url(../../../images/close_btn.svg);
@@ -20,17 +20,17 @@
 
 @media screen and (max-width: 530px)
 {
-  .popup__close
+  .close__button
   {
-    transform: translate(calc(430px - 32px), calc(-32px - 8px));
+    transform: translate(0, calc(-32px - 8px));
   }
 }
 
 @media screen and (max-width: 460px)
 {
-  .popup__close
+  .close__button
   {
-    transform: translate(calc(282px - 20px), calc(-20px - 16px));
+    transform: translate(0, calc(-20px - 16px));
 
     width: 20px;
     height: 20px;

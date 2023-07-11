@@ -1,4 +1,4 @@
-# http://editorconfig.org
+{# http://editorconfig.org
 
 
 # A special property that should be specified at the top of the file outside of
@@ -43,4 +43,3 @@ trim_trailing_whitespace = true
 # Possible values - true, false
 
 insert_final_newline = true
-          

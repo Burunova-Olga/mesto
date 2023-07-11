@@ -5,9 +5,9 @@ function showPopup(_popup)
 }
 
 // Нажатие Close
-let btnsClose = document.querySelectorAll('.popup__close');
+let btnsClose = document.querySelectorAll('.close__button');
 for (let i = 0; i < btnsClose.length; i++)
-  btnsClose[i].addEventListener('click', () => hidePopup(btnsClose[i].parentElement.parentElement));
+  btnsClose[i].addEventListener('click', () => hidePopup(btnsClose[i].parentElement.parentElement.parentElement));
 
 // Закрытие popup
 function hidePopup(_popup)
@@ -25,6 +25,8 @@ let popupProfile = document.querySelector('#popup-profile');
 let formElementProfile = popupProfile.querySelector('#form-profile');
 let nameInput = formElementProfile.querySelector('#input-name');
 let descriptionInput = formElementProfile.querySelector('#input-description');
+let nameOutput = formElementProfile.querySelector('.profile__name');
+let descriptionOutput = formElementProfile.querySelector('.profile__description');
 
 formElementProfile.addEventListener('submit', handleFormSubmit);
 
@@ -33,8 +35,8 @@ function showPopupEdit()
 {
   showPopup(popupProfile);
 
-  nameInput.value = document.querySelector('.profile__name').textContent;
-  descriptionInput.value = document.querySelector('.profile__description').textContent;
+  nameInput.value = nameOutput.textContent;
+  descriptionInput.value = descriptionOutput.textContent;
 }
 
 // Внести на страницу новые данные профиля
@@ -42,8 +44,8 @@ function handleFormSubmit(evt)
 {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
 
-  document.querySelector('.profile__name').textContent = nameInput.value;
-  document.querySelector('.profile__description').textContent = descriptionInput.value;
+  nameOutput.textContent = nameInput.value;
+  descriptionOutput.textContent = descriptionInput.value;
 
   hidePopup(popupProfile);
 }
@@ -53,7 +55,8 @@ function handleFormSubmit(evt)
 //----------------------------------------------------
 let elementsContainer = document.querySelector('.elements');
 
-let initialCards = [
+let initialCards =
+[
   {
     name: 'Архыз',
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
@@ -107,7 +110,7 @@ initialCards.forEach(element =>
 let btnAdd = document.querySelector('.profile__add');
 btnAdd.addEventListener('click', () => showPopup(popupPlace));
 
-let popupPlace = document.querySelector('#popup-place');
+let popupPlace = document.querySelector('#popup-places');
 let formElementPlace = popupPlace.querySelector('#form-place');
 let placeInput = formElementPlace.querySelector('#input-place');
 let linkInput = formElementPlace.querySelector('#input-link');
@@ -127,9 +130,12 @@ function handleFormSubmitAdd(evt)
 
   let elementHTML = printElement(placeInput.value, linkInput.value);
 
-  // Настройка жмяка лайка
+  // Настройка эффектов
   let like = elementHTML.querySelector('.element__like');
   like.addEventListener('click', () => like.classList.toggle('element__like_checked'));
+
+  let zoom = elementHTML.querySelector('.element__zoom');
+  zoom.addEventListener('click', () => showPopupZoom(zoom.parentElement));
 
   elementsContainer.prepend(elementHTML);
 
@@ -149,3 +155,26 @@ for (let i = 0; i < btnsLike.length; i++)
 let btnsDelete = document.querySelectorAll('.element__delete');
 for (let i = 0; i < btnsDelete.length; i++)
   btnsDelete[i].addEventListener('click', () => btnsDelete[i].parentElement.remove());
+
+//----------------------------------------------------
+//                 Фото на весь экран
+//----------------------------------------------------
+let popupZoom = document.querySelector('.popup_type_zoom');
+let btnsZoom = document.querySelectorAll('.element__zoom');
+for (let i = 0; i < btnsZoom.length; i++)
+  btnsZoom[i].addEventListener('click', () => showPopupZoom(btnsZoom[i].parentElement));
+
+function showPopupZoom(_element)
+{
+  let image = popupZoom.querySelector('.photo__image');
+  let text = popupZoom.querySelector('.photo__text');
+
+  const link = _element.querySelector('.element__image');
+  const name = _element.querySelector('.element__text');
+
+  image.src = link.src;
+  image.alt = link.alt;
+  text.textContent = name.textContent;
+
+  showPopup(popupZoom);
+}

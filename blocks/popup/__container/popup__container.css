@@ -1,6 +1,5 @@
 .popup__container
 {
-  /* form.display = block */
   margin: auto;
   padding: 0;
 
@@ -8,8 +7,6 @@
 
   background-color: #ffffff;
   border-radius: 10px;
-
-  position: relative;
 }
 
 @media screen and (max-width: 460px)

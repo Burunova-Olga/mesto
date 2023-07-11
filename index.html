@@ -26,21 +26,25 @@
 
     <div class="popup" id="popup-profile">
       <div class='popup__container'>
-        <button type="button" class="button popup__close" aria-label="Закрыть без сохранения"></button>
+        <div class="close">
+          <button type="button" class="button close__button" aria-label="Закрыть без сохранения"></button>
+        </div>
         <h3 class="popup__title">Редактировать профиль</h3>
         <form id="form-profile" class="form-popup">
           <input type="text" class="form-popup__input form-popup__input_type_title" name="input-name" id="input-name"
             placeholder="Ваше имя" value="Жак-Ив Кусто" required>
-          <input type="text" class="form-popup__input form-popup__input_type_subtitle" name="input-description" id="input-description"
-            placeholder='Краткая информация' value="Исследователь океана" required>
+          <input type="text" class="form-popup__input form-popup__input_type_subtitle" name="input-description"
+            id="input-description" placeholder='Краткая информация' value="Исследователь океана" required>
           <input type="submit" class="form-popup__submit" value="Сохранить">
         </form>
       </div>
     </div>
 
-    <div class="popup" id="popup-place">
+    <div class="popup" id="popup-places">
       <div class='popup__container'>
-        <button type="button" class="button popup__close" aria-label="Закрыть без сохранения"></button>
+        <div class="close">
+          <button type="button" class="button close__button" aria-label="Закрыть без сохранения"></button>
+        </div>
         <h3 class="popup__title">Новое место</h3>
         <form id="form-place" class="form-popup">
           <input type="text" class="form-popup__input form-popup__input_type_title" name="input-place" id="input-place"
@@ -62,7 +66,9 @@
 
   <template id="elementTemplate">
     <div class="element">
-      <img src="" class="element__image" alt="">
+      <button type="button" class="element__zoom" aria-label="Открыть оригинал фото">
+        <img src="" class="element__image" alt="">
+      </button>
       <button type="button" class="button element__delete" aria-label="Удалить место"></button>
       <div class="element__caption">
         <h3 class="block element__text"></h3>
@@ -70,6 +76,16 @@
       </div>
     </div>
   </template>
+
+  <div class="popup popup_type_zoom" id="popup-zoom">
+    <div class="photo">
+      <div class="close">
+        <button type="button" class="button close__button" aria-label="Закрыть без сохранения"></button>
+      </div>
+      <img class="photo__image" src="" alt="">
+      <p class="photo__text"></p>
+    </div>
+  </div>
 
   <script src="scripts/script.js"></script>
 </body>
