@@ -1,28 +1,35 @@
+// Все комментарии ниже не несут в себе цели оскорбить или обидеть ревьюера. Они не содержат просьб о помощи.
+// Прошу воспринимать их как просто как ворчание.
+
 // Открытие popup
-function showPopup(_popup)
+/* Считается хорошей практикой начинать названия локальных переменных с нижнего подчеркивания.
+Таким образом для программиста сразу видно, используется ли данная переменная исключительно в данной функции
+или может быть доступна в глобальном пространстве. */
+function showPopup(popup)
 {
-  _popup.classList.add("popup_opened");
+  popup.classList.add("popup_opened");
 }
 
 // Нажатие Close
-let btnsClose = document.querySelectorAll('.close__button');
-for (let i = 0; i < btnsClose.length; i++)
-  btnsClose[i].addEventListener('click', () => hidePopup(btnsClose[i].closest(".popup")));
+// btnsClose - это множественное число. Buttons Close.
+const closeBtns = document.querySelectorAll('.close__button');
+for (let i = 0; i < closeBtns.length; i++)
+  closeBtns[i].addEventListener('click', () => hidePopup(closeBtns[i].closest(".popup")));
 
 // Закрытие popup
-function hidePopup(_popup)
+function hidePopup(popup)
 {
-  _popup.classList.remove("popup_opened");
+  popup.classList.remove("popup_opened");
 }
 
 //----------------------------------------------------
 //            Изменение данных профиля
 //----------------------------------------------------
-let btnEdit = document.querySelector('.profile__edit');
-btnEdit.addEventListener('click', showPopupEdit);
+const editBtn = document.querySelector('.profile__edit');
+editBtn.addEventListener('click', showPopupEdit);
 
-let popupProfile = document.querySelector('.popup_type_profile');
-let formElementProfile = popupProfile.querySelector('.form-popup_type_profile');
+const popupProfile = document.querySelector('.popup_type_profile');
+const formElementProfile = popupProfile.querySelector('.form-popup_type_profile');
 let nameInput = formElementProfile.querySelector('#input-name');
 let descriptionInput = formElementProfile.querySelector('#input-description');
 let nameOutput = document.querySelector('.profile__name');
@@ -84,15 +91,25 @@ let initialCards =
 ];
 
 // Конструкция из шаблона
-function printElement(name, link)
+function printElement(localName, localLink)
 {
   const elementTemplate = document.querySelector('.elementTemplate').content;
   let elementHTML = elementTemplate.querySelector('.element').cloneNode(true);
 
   let image = elementHTML.querySelector('.element__image');
-  image.src = link;
-  image.alt = name;
-  elementHTML.querySelector('.element__text').textContent = name;
+  image.src = localLink;
+  image.alt = localName;
+  elementHTML.querySelector('.element__text').textContent = localName;
+
+  // Настройка эффектов
+  const like = elementHTML.querySelector('.element__like');
+  like.addEventListener('click', () => like.classList.toggle('element__like_checked'));
+
+  const zoom = elementHTML.querySelector('.element__zoom');
+  zoom.addEventListener('click', () => showPopupZoom(elementHTML));
+
+  const del = elementHTML.querySelector('.element__delete');
+  del.addEventListener('click', () => del.parentElement.remove());
 
   return elementHTML;
 }
@@ -105,26 +122,9 @@ initialCards.forEach(element =>
 });
 
 //----------------------------------------------------
-//                  Постановка лайка
-//----------------------------------------------------
-let btnsLike = document.querySelectorAll('.element__like');
-for (let i = 0; i < btnsLike.length; i++)
-  btnsLike[i].addEventListener('click', () => btnsLike[i].classList.toggle('element__like_checked'));
-
-//----------------------------------------------------
-//                 Удаление места
-//----------------------------------------------------
-let btnsDelete = document.querySelectorAll('.element__delete');
-for (let i = 0; i < btnsDelete.length; i++)
-  btnsDelete[i].addEventListener('click', () => btnsDelete[i].parentElement.remove());
-
-//----------------------------------------------------
 //                 Фото на весь экран
 //----------------------------------------------------
 let popupZoom = document.querySelector('.popup_type_zoom');
-let btnsZoom = document.querySelectorAll('.element__zoom');
-for (let i = 0; i < btnsZoom.length; i++)
-  btnsZoom[i].addEventListener('click', () => showPopupZoom(btnsZoom[i].parentElement));
 
 function showPopupZoom(_element)
 {
@@ -144,13 +144,13 @@ function showPopupZoom(_element)
 //----------------------------------------------------
 //            Добавление нового элемента
 //----------------------------------------------------
-let btnAdd = document.querySelector('.profile__add');
-btnAdd.addEventListener('click', () => showPopup(popupPlace));
+const addBtns = document.querySelector('.profile__add');
+addBtns.addEventListener('click', () => showPopup(popupPlace));
 
-let popupPlace = document.querySelector('.popup_type_places');
-let formElementPlace = popupPlace.querySelector('.form-popup_type_place');
-let placeInput = formElementPlace.querySelector('#input-place');
-let linkInput = formElementPlace.querySelector('#input-link');
+const popupPlace = document.querySelector('.popup_type_places');
+const formElementPlace = popupPlace.querySelector('.form-popup_type_place');
+const placeInput = formElementPlace.querySelector('#input-place');
+const linkInput = formElementPlace.querySelector('#input-link');
 
 formElementPlace.addEventListener('submit', handleFormSubmitAdd);
 
@@ -165,22 +165,10 @@ function handleFormSubmitAdd(evt)
     link: linkInput.value
   });
 
-  let elementHTML = printElement(placeInput.value, linkInput.value);
-
-  // Настройка эффектов
-  let like = elementHTML.querySelector('.element__like');
-  like.addEventListener('click', () => like.classList.toggle('element__like_checked'));
-
-  let zoom = elementHTML.querySelector('.element__zoom');
-  zoom.addEventListener('click', () => showPopupZoom(zoom.parentElement));
-
-  let del = elementHTML.querySelector('.element__delete');
-  del.addEventListener('click', () => del.parentElement.remove());
-
+  const elementHTML = printElement(placeInput.value, linkInput.value);
   elementsContainer.prepend(elementHTML);
 
-  placeInput.value = "";
-  linkInput.value = "";
+  evt.target.reset();
 
   hidePopup(popupPlace);
 }
