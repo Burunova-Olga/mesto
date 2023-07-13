@@ -1,18 +1,35 @@
-// Все комментарии ниже не несут в себе цели оскорбить или обидеть ревьюера. Они не содержат просьб о помощи.
-// Прошу воспринимать их как просто как ворчание.
+const elementsContainer = document.querySelector('.elements');
+const popupProfile = document.querySelector('.popup_type_profile');
+const popupZoom = document.querySelector('.popup_type_zoom');
+const popupPlace = document.querySelector('.popup_type_places');
+const nameOutput = document.querySelector('.profile__name');
+const descriptionOutput = document.querySelector('.profile__description');
+const closeBtns = document.querySelectorAll('.close__button');
+const editBtn = document.querySelector('.profile__edit');
+const addBtns = document.querySelector('.profile__add');
+
+const formElementProfile = popupProfile.querySelector('.form-popup_type_profile');
+const nameInput = formElementProfile.querySelector('#input-name');
+const descriptionInput = formElementProfile.querySelector('#input-description');
+
+const formElementPlace = popupPlace.querySelector('.form-popup_type_place');
+const placeInput = formElementPlace.querySelector('#input-place');
+const linkInput = formElementPlace.querySelector('#input-link');
+
+const image = popupZoom.querySelector('.photo__image');
+const text = popupZoom.querySelector('.photo__text');
+
+//----------------------------------------------------
+//                      Popups
+//----------------------------------------------------
 
 // Открытие popup
-/* Считается хорошей практикой начинать названия локальных переменных с нижнего подчеркивания.
-Таким образом для программиста сразу видно, используется ли данная переменная исключительно в данной функции
-или может быть доступна в глобальном пространстве. */
 function showPopup(popup)
 {
   popup.classList.add("popup_opened");
 }
 
 // Нажатие Close
-// btnsClose - это множественное число. Buttons Close.
-const closeBtns = document.querySelectorAll('.close__button');
 for (let i = 0; i < closeBtns.length; i++)
   closeBtns[i].addEventListener('click', () => hidePopup(closeBtns[i].closest(".popup")));
 
@@ -22,22 +39,9 @@ function hidePopup(popup)
   popup.classList.remove("popup_opened");
 }
 
-//----------------------------------------------------
-//            Изменение данных профиля
-//----------------------------------------------------
-const editBtn = document.querySelector('.profile__edit');
-editBtn.addEventListener('click', showPopupEdit);
-
-const popupProfile = document.querySelector('.popup_type_profile');
-const formElementProfile = popupProfile.querySelector('.form-popup_type_profile');
-let nameInput = formElementProfile.querySelector('#input-name');
-let descriptionInput = formElementProfile.querySelector('#input-description');
-let nameOutput = document.querySelector('.profile__name');
-let descriptionOutput = document.querySelector('.profile__description');
-
-formElementProfile.addEventListener('submit', handleFormSubmit);
-
+//------------Изменение данных профиля----------------
 // Открыть форму редактирования профиля
+editBtn.addEventListener('click', showPopupEdit);
 function showPopupEdit()
 {
   showPopup(popupProfile);
@@ -47,6 +51,7 @@ function showPopupEdit()
 }
 
 // Внести на страницу новые данные профиля
+formElementProfile.addEventListener('submit', handleFormSubmit);
 function handleFormSubmit(evt)
 {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
@@ -57,12 +62,40 @@ function handleFormSubmit(evt)
   hidePopup(popupProfile);
 }
 
+//-----------Добавление нового элемента---------------
+addBtns.addEventListener('click', () => showPopup(popupPlace));
+
+formElementPlace.addEventListener('submit', handleFormSubmitAdd);
+// Добавление пользовательской фото на страницу
+function handleFormSubmitAdd(evt)
+{
+  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
+
+  const elementHTML = printElement(placeInput.value, linkInput.value);
+  elementsContainer.prepend(elementHTML);
+
+  evt.target.reset();
+
+  hidePopup(popupPlace);
+}
+
+//---------------Фото на весь экран-------------------
+function showPopupZoom(element)
+{
+  let link = element.querySelector('.element__image');
+  let name = element.querySelector('.element__text');
+
+  image.src = link.src;
+  image.alt = link.alt;
+  text.textContent = name.textContent;
+
+  showPopup(popupZoom);
+}
+
 //----------------------------------------------------
 //                Массив картинок
 //----------------------------------------------------
-let elementsContainer = document.querySelector('.elements');
-
-let initialCards =
+const initialCards =
 [
   {
     name: 'Архыз',
@@ -90,13 +123,20 @@ let initialCards =
   }
 ];
 
+// Добавление массива фотографий на форму
+initialCards.forEach(element =>
+  {
+    let elementHTML = printElement(element.name, element.link);
+    elementsContainer.append(elementHTML);
+  });
+
 // Конструкция из шаблона
 function printElement(localName, localLink)
 {
   const elementTemplate = document.querySelector('.elementTemplate').content;
-  let elementHTML = elementTemplate.querySelector('.element').cloneNode(true);
+  const elementHTML = elementTemplate.querySelector('.element').cloneNode(true);
 
-  let image = elementHTML.querySelector('.element__image');
+  const image = elementHTML.querySelector('.element__image');
   image.src = localLink;
   image.alt = localName;
   elementHTML.querySelector('.element__text').textContent = localName;
@@ -112,63 +152,4 @@ function printElement(localName, localLink)
   del.addEventListener('click', () => del.parentElement.remove());
 
   return elementHTML;
-}
-
-// Добавление массива фотографий на форму
-initialCards.forEach(element =>
-{
-  let elementHTML = printElement(element.name, element.link);
-  elementsContainer.append(elementHTML);
-});
-
-//----------------------------------------------------
-//                 Фото на весь экран
-//----------------------------------------------------
-let popupZoom = document.querySelector('.popup_type_zoom');
-
-function showPopupZoom(_element)
-{
-  let image = popupZoom.querySelector('.photo__image');
-  let text = popupZoom.querySelector('.photo__text');
-
-  const link = _element.querySelector('.element__image');
-  const name = _element.querySelector('.element__text');
-
-  image.src = link.src;
-  image.alt = link.alt;
-  text.textContent = name.textContent;
-
-  showPopup(popupZoom);
-}
-
-//----------------------------------------------------
-//            Добавление нового элемента
-//----------------------------------------------------
-const addBtns = document.querySelector('.profile__add');
-addBtns.addEventListener('click', () => showPopup(popupPlace));
-
-const popupPlace = document.querySelector('.popup_type_places');
-const formElementPlace = popupPlace.querySelector('.form-popup_type_place');
-const placeInput = formElementPlace.querySelector('#input-place');
-const linkInput = formElementPlace.querySelector('#input-link');
-
-formElementPlace.addEventListener('submit', handleFormSubmitAdd);
-
-// Добавление пользовательской фото на страницу
-function handleFormSubmitAdd(evt)
-{
-  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-
-  initialCards.unshift(
-  {
-    name: placeInput.value,
-    link: linkInput.value
-  });
-
-  const elementHTML = printElement(placeInput.value, linkInput.value);
-  elementsContainer.prepend(elementHTML);
-
-  evt.target.reset();
-
-  hidePopup(popupPlace);
 }
