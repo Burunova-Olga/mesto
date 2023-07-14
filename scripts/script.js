@@ -82,8 +82,8 @@ function handleFormSubmitAdd(evt)
 //---------------Фото на весь экран-------------------
 function showPopupZoom(element)
 {
-  let link = element.querySelector('.element__image');
-  let name = element.querySelector('.element__text');
+  const link = element.querySelector('.element__image');
+  const name = element.querySelector('.element__text');
 
   image.src = link.src;
   image.alt = link.alt;
@@ -126,7 +126,7 @@ const initialCards =
 // Добавление массива фотографий на форму
 initialCards.forEach(element =>
   {
-    let elementHTML = printElement(element.name, element.link);
+    const elementHTML = printElement(element.name, element.link);
     elementsContainer.append(elementHTML);
   });
 
