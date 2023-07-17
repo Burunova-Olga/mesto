@@ -5,6 +5,7 @@ const popupPlace = document.querySelector('.popup_type_places');
 const nameOutput = document.querySelector('.profile__name');
 const descriptionOutput = document.querySelector('.profile__description');
 const closeBtns = document.querySelectorAll('.close__button');
+const popups = document.querySelectorAll('.popup');
 const editBtn = document.querySelector('.profile__edit');
 const addBtns = document.querySelector('.profile__add');
 
@@ -38,6 +39,29 @@ function hidePopup(popup)
 {
   popup.classList.remove("popup_opened");
 }
+
+popups.forEach((popup) =>
+{
+  popup.addEventListener('click', (evt) =>
+  {
+    hidePopup(evt.target);
+  });
+});
+
+document.addEventListener('keydown', (evt) =>
+{
+  if (evt.key === 'Escape')
+  {
+    popups.forEach((popup) =>
+    {
+      if (popup.classList.contains("popup_opened"))
+      {
+        hidePopup(popup);
+        return;
+      }
+    });
+  }
+});
 
 //------------Изменение данных профиля----------------
 // Открыть форму редактирования профиля
