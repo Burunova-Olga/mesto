@@ -6,11 +6,20 @@
   color: #F00;
 
   display: block;
-  min-height: 14.52px;
+  min-height: 29px;
+  width: calc(430px - 2*36px);
 
   font-size: 12px;
   font-weight: 400;
   line-height: 14.52px;
 
   opacity: 0;
+}
+
+@media screen and (max-width: 460px)
+{
+  .form-popup__input-error
+  {
+    width: calc(282px - 2*22px);
+  }
 }

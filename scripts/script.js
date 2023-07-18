@@ -23,11 +23,26 @@ const text = popupZoom.querySelector('.photo__text');
 //----------------------------------------------------
 //                      Popups
 //----------------------------------------------------
+function listenEsc(evt)
+{
+  if (evt.key === 'Escape')
+  {
+    popups.forEach((popup) =>
+    {
+      if (popup.classList.contains("popup_opened"))
+      {
+        hidePopup(popup);
+        return;
+      }
+    });
+  }
+}
 
 // Открытие popup
 function showPopup(popup)
 {
   popup.classList.add("popup_opened");
+  document.addEventListener('keydown', listenEsc);
 }
 
 // Нажатие Close
@@ -38,6 +53,7 @@ for (let i = 0; i < closeBtns.length; i++)
 function hidePopup(popup)
 {
   popup.classList.remove("popup_opened");
+  document.removeEventListener('keydown', listenEsc);
 }
 
 popups.forEach((popup) =>
@@ -52,21 +68,6 @@ popups.forEach((popup) =>
   {
     hidePopup(evt.target);
   });
-});
-
-document.addEventListener('keydown', (evt) =>
-{
-  if (evt.key === 'Escape')
-  {
-    popups.forEach((popup) =>
-    {
-      if (popup.classList.contains("popup_opened"))
-      {
-        hidePopup(popup);
-        return;
-      }
-    });
-  }
 });
 
 //------------Изменение данных профиля----------------

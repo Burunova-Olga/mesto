@@ -3,7 +3,7 @@
   background-color: #000000;
   color: #FFFFFF;
 
-  margin: 31px 36px 37px;
+  margin: 19px 36px 37px;
   padding: 0;
 
   height: 50px;
@@ -20,7 +20,7 @@
 {
   .form-popup__submit
   {
-    margin: 31px 22px 25px;
+    margin: 19px 22px 25px;
     height: 46px;
     width: 238px;
   }
