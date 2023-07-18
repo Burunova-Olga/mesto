@@ -1,6 +1,6 @@
 .form-popup__input
 {
-  margin: 30px 36px 0;
+  margin: 13px 36px 0;
   padding: 0 0 13px;
 
   font-weight: 400;
@@ -13,6 +13,11 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
+::placeholder
+{
+  color: rgba(0, 0, 0, 0.2);
+}
+
 .form-popup__input:first-child
 {
   margin-top: 54px;
@@ -22,7 +27,7 @@
 {
   .form-popup__input
   {
-    margin: 30px 22px 0;
+    margin: 13px 22px 0;
     width: calc(282px - 2*22px);
   }
 

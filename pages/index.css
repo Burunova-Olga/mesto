@@ -36,7 +36,11 @@
 
 /* Form */
 @import url(../blocks/form-popup/__input/form-popup__input.css);
+@import url(../blocks/form-popup/__input/_error/form-popup__input_error.css);
+@import url(../blocks/form-popup/__input-error/form-popup__input-error.css);
+@import url(../blocks/form-popup/__input-error/_visible/form-popup__input-error_visible.css);
 @import url(../blocks/form-popup/__submit/form-profile__submit.css);
+@import url(../blocks/form-popup/__submit/_disabled/form-popup__submit_disabled.css);
 
 /* Element */
 @import url(../blocks/elements/elements.css);

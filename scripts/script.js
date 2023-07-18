@@ -42,6 +42,12 @@ function hidePopup(popup)
 
 popups.forEach((popup) =>
 {
+  const popupContainer = popup.querySelector('.popup__container');
+  popupContainer.addEventListener('click', (evt) =>
+  {
+    evt.stopImmediatePropagation();
+  });
+
   popup.addEventListener('click', (evt) =>
   {
     hidePopup(evt.target);
