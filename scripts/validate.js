@@ -24,9 +24,6 @@ const hideInputError = (selectorinputErrorClass, selectorErrorClass, formElement
 // Проверка валидности элемента
 const isValid = (selectorinputErrorClass, selectorErrorClass, formElement, inputElement) =>
 {
-  console.log(inputElement);
-  console.log(inputElement.validity);
-  console.log(inputElement.validity.valid);
   if (inputElement.validity.valid)
     hideInputError(selectorinputErrorClass, selectorErrorClass, formElement, inputElement);
   else

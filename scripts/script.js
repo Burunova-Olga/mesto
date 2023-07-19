@@ -46,8 +46,6 @@ function showPopup(popup)
   if (form != null)
     form.reset();
 
-  console.log(form);
-
   popup.classList.add("popup_opened");
   document.addEventListener('keydown', listenEsc);
 }
@@ -63,7 +61,6 @@ function hidePopup(popup)
   document.removeEventListener('keydown', listenEsc);
 
   const form = popup.querySelector('.form-popup');
-  console.log(form);
 }
 
 popups.forEach((popup) =>
@@ -114,7 +111,21 @@ function handleFormSubmit(evt)
 }
 
 //-----------Добавление нового элемента---------------
-addBtns.addEventListener('click', () => showPopup(popupPlace));
+addBtns.addEventListener('click', showPopupAdd);
+function showPopupAdd()
+{
+  showPopup(popupPlace);
+
+  ValidatePopup(popupPlace,
+  {
+    formSelector: '.form-popup',
+    inputSelector: '.form-popup__input',
+    submitButtonSelector: '.form-popup__submit',
+    inactiveButtonClass: 'form-popup__submit_disabled',
+    inputErrorClass: 'form-popup__input_error',
+    errorClass: 'form-popup__input-error_visible'
+  });
+}
 
 formElementPlace.addEventListener('submit', handleFormSubmitAdd);
 // Добавление пользовательской фото на страницу
