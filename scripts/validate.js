@@ -85,6 +85,17 @@ const enableValidation = (selectors) =>
   });
 };
 
+const ValidatePopup = (popupElement, selectors) =>
+{
+  const inputList = Array.from(popupElement.querySelectorAll(`${selectors.inputSelector}`));
+  const buttonElement  = popupElement.querySelector(`${selectors.submitButtonSelector}`);
+  inputList.forEach((inputElement) =>
+  {
+    isValid(selectors.inputErrorClass, selectors.errorClass, popupElement, inputElement);
+  });
+  toggleButtonState(selectors.inactiveButtonClass, inputList, buttonElement);
+}
+
 // Вызов функции
 enableValidation
 (

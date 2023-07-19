@@ -41,6 +41,13 @@ function listenEsc(evt)
 // Открытие popup
 function showPopup(popup)
 {
+  const form = popup.querySelector('.form-popup');
+  // Popup с картинкой формы не имеет
+  if (form != null)
+    form.reset();
+
+  console.log(form);
+
   popup.classList.add("popup_opened");
   document.addEventListener('keydown', listenEsc);
 }
@@ -54,6 +61,9 @@ function hidePopup(popup)
 {
   popup.classList.remove("popup_opened");
   document.removeEventListener('keydown', listenEsc);
+
+  const form = popup.querySelector('.form-popup');
+  console.log(form);
 }
 
 popups.forEach((popup) =>
@@ -79,6 +89,16 @@ function showPopupEdit()
 
   nameInput.value = nameOutput.textContent;
   descriptionInput.value = descriptionOutput.textContent;
+
+  ValidatePopup(popupProfile,
+  {
+    formSelector: '.form-popup',
+    inputSelector: '.form-popup__input',
+    submitButtonSelector: '.form-popup__submit',
+    inactiveButtonClass: 'form-popup__submit_disabled',
+    inputErrorClass: 'form-popup__input_error',
+    errorClass: 'form-popup__input-error_visible'
+  });
 }
 
 // Внести на страницу новые данные профиля
