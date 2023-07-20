@@ -4,20 +4,20 @@
 // Вывод ошибки
 const showInputError = (selectorinputErrorClass, selectorErrorClass, formElement, inputElement, errorMessage) =>
 {
-  inputElement.classList.add(`${selectorinputErrorClass}`);
+  inputElement.classList.add(selectorinputErrorClass);
 
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
   errorElement.textContent = errorMessage;
-  errorElement.classList.add(`${selectorErrorClass}`);
+  errorElement.classList.add(selectorErrorClass);
 };
 
 // Скрытие ошибки
 const hideInputError = (selectorinputErrorClass, selectorErrorClass, formElement, inputElement) =>
 {
-  inputElement.classList.remove(`${selectorinputErrorClass}`);
+  inputElement.classList.remove(selectorinputErrorClass);
 
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  errorElement.classList.remove(`${selectorErrorClass}`);
+  errorElement.classList.remove(selectorErrorClass);
   errorElement.textContent = '';
 };
 
@@ -30,19 +30,27 @@ const isValid = (selectorinputErrorClass, selectorErrorClass, formElement, input
     showInputError(selectorinputErrorClass, selectorErrorClass, formElement, inputElement, inputElement.validationMessage);
 };
 
+// Установка кнопки в активное состояние
+const enabledButton = (selectorBtn, buttonElement) =>
+{
+  buttonElement.removeAttribute('disabled');
+  buttonElement.classList.remove(selectorBtn);
+};
+
+// Установка кнопки в неактивное состояние
+const disabledButton = (selectorBtn, buttonElement) =>
+{
+  buttonElement.setAttribute('disabled', true);
+  buttonElement.classList.add(selectorBtn);
+};
+
 // Button enable
 const toggleButtonState  = (selectorBtn, inputList, buttonElement) =>
 {
   if (hasInvalidInput(inputList))
-  {
-    buttonElement.setAttribute('disabled', true);
-    buttonElement.classList.add(`${selectorBtn}`);
-  }
+    disabledButton(selectorBtn, buttonElement);
   else
-  {
-    buttonElement.removeAttribute('disabled');
-    buttonElement.classList.remove(`${selectorBtn}`);
-  }
+    enabledButton(selectorBtn, buttonElement);
 }
 
 // Есть ли хоть один не валидный
@@ -55,10 +63,10 @@ const hasInvalidInput = (inputList) =>
 }
 
 // Настройка события ввода во все input
-const setEventListeners = (selectors, popupElement) =>
+const setEventListeners = (selectors, formElement) =>
 {
-  const inputList = Array.from(popupElement.querySelectorAll(`${selectors.inputSelector}`));
-  const buttonElement  = popupElement.querySelector(`${selectors.submitButtonSelector}`);
+  const inputList = Array.from(formElement.querySelectorAll(selectors.inputSelector));
+  const buttonElement  = formElement.querySelector(selectors.submitButtonSelector);
   toggleButtonState(selectors.inactiveButtonClass, inputList, buttonElement);
 
   // Настройка события ввода
@@ -66,7 +74,7 @@ const setEventListeners = (selectors, popupElement) =>
   {
     inputElement.addEventListener('input', () =>
     {
-      isValid(selectors.inputErrorClass, selectors.errorClass, popupElement, inputElement);
+      isValid(selectors.inputErrorClass, selectors.errorClass, formElement, inputElement);
       toggleButtonState(selectors.inactiveButtonClass, inputList, buttonElement);
     });
   });
@@ -75,17 +83,17 @@ const setEventListeners = (selectors, popupElement) =>
 // Валидация всех форм
 const enableValidation = (selectors) =>
 {
-  const popupList = Array.from(document.querySelectorAll(`${selectors.formSelector}`));
-  popupList.forEach((popupElement) =>
+  const formList = Array.from(document.querySelectorAll(selectors.formSelector));
+  formList.forEach((formElement) =>
   {
-    setEventListeners(selectors, popupElement);
+    setEventListeners(selectors, formElement);
   });
 };
 
-const ValidatePopup = (popupElement, selectors) =>
+const validatePopup = (popupElement, selectors) =>
 {
-  const inputList = Array.from(popupElement.querySelectorAll(`${selectors.inputSelector}`));
-  const buttonElement  = popupElement.querySelector(`${selectors.submitButtonSelector}`);
+  const inputList = Array.from(popupElement.querySelectorAll(selectors.inputSelector));
+  const buttonElement  = popupElement.querySelector(selectors.submitButtonSelector);
   inputList.forEach((inputElement) =>
   {
     isValid(selectors.inputErrorClass, selectors.errorClass, popupElement, inputElement);
@@ -94,14 +102,4 @@ const ValidatePopup = (popupElement, selectors) =>
 }
 
 // Вызов функции
-enableValidation
-(
-  {
-    formSelector: '.form-popup',
-    inputSelector: '.form-popup__input',
-    submitButtonSelector: '.form-popup__submit',
-    inactiveButtonClass: 'form-popup__submit_disabled',
-    inputErrorClass: 'form-popup__input_error',
-    errorClass: 'form-popup__input-error_visible'
-  }
-);
+enableValidation(selectorsList);

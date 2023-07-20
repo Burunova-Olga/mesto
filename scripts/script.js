@@ -30,10 +30,7 @@ function listenEsc(evt)
     popups.forEach((popup) =>
     {
       if (popup.classList.contains("popup_opened"))
-      {
         hidePopup(popup);
-        return;
-      }
     });
   }
 }
@@ -59,21 +56,14 @@ function hidePopup(popup)
 {
   popup.classList.remove("popup_opened");
   document.removeEventListener('keydown', listenEsc);
-
-  const form = popup.querySelector('.form-popup');
 }
 
 popups.forEach((popup) =>
 {
-  const popupContainer = popup.querySelector('.popup__container');
-  popupContainer.addEventListener('click', (evt) =>
-  {
-    evt.stopImmediatePropagation();
-  });
-
   popup.addEventListener('click', (evt) =>
   {
-    hidePopup(evt.target);
+    if (evt.target.classList.contains('popup'))
+      hidePopup(evt.target);
   });
 });
 
@@ -87,15 +77,7 @@ function showPopupEdit()
   nameInput.value = nameOutput.textContent;
   descriptionInput.value = descriptionOutput.textContent;
 
-  ValidatePopup(popupProfile,
-  {
-    formSelector: '.form-popup',
-    inputSelector: '.form-popup__input',
-    submitButtonSelector: '.form-popup__submit',
-    inactiveButtonClass: 'form-popup__submit_disabled',
-    inputErrorClass: 'form-popup__input_error',
-    errorClass: 'form-popup__input-error_visible'
-  });
+  validatePopup(popupProfile, selectorsList);
 }
 
 // Внести на страницу новые данные профиля
@@ -111,21 +93,7 @@ function handleFormSubmit(evt)
 }
 
 //-----------Добавление нового элемента---------------
-addBtns.addEventListener('click', showPopupAdd);
-function showPopupAdd()
-{
-  showPopup(popupPlace);
-
-  ValidatePopup(popupPlace,
-  {
-    formSelector: '.form-popup',
-    inputSelector: '.form-popup__input',
-    submitButtonSelector: '.form-popup__submit',
-    inactiveButtonClass: 'form-popup__submit_disabled',
-    inputErrorClass: 'form-popup__input_error',
-    errorClass: 'form-popup__input-error_visible'
-  });
-}
+addBtns.addEventListener('click', () => showPopup(popupPlace));
 
 formElementPlace.addEventListener('submit', handleFormSubmitAdd);
 // Добавление пользовательской фото на страницу
@@ -133,7 +101,7 @@ function handleFormSubmitAdd(evt)
 {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
 
-  const elementHTML = printElement(placeInput.value, linkInput.value);
+  const elementHTML = createElement(placeInput.value, linkInput.value);
   elementsContainer.prepend(elementHTML);
 
   evt.target.reset();
@@ -157,43 +125,15 @@ function showPopupZoom(element)
 //----------------------------------------------------
 //                Массив картинок
 //----------------------------------------------------
-const initialCards =
-[
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-
 // Добавление массива фотографий на форму
 initialCards.forEach(element =>
   {
-    const elementHTML = printElement(element.name, element.link);
+    const elementHTML = createElement(element.name, element.link);
     elementsContainer.append(elementHTML);
   });
 
 // Конструкция из шаблона
-function printElement(localName, localLink)
+function createElement(localName, localLink)
 {
   const elementTemplate = document.querySelector('.elementTemplate').content;
   const elementHTML = elementTemplate.querySelector('.element').cloneNode(true);

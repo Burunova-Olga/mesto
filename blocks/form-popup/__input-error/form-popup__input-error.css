@@ -6,12 +6,12 @@
   color: #F00;
 
   display: block;
-  min-height: 29px;
+  min-height: 30px;
   width: calc(430px - 2*36px);
 
   font-size: 12px;
   font-weight: 400;
-  line-height: 14.52px;
+  line-height: 15px;
 
   opacity: 0;
 }
