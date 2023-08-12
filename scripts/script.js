@@ -20,6 +20,58 @@ const linkInput = formElementPlace.querySelector('#input-link');
 const image = popupZoom.querySelector('.photo__image');
 const text = popupZoom.querySelector('.photo__text');
 
+class Card
+{
+  constructor(link, name, templateSelector)
+  {
+    this._link = link;
+    this._name = name;
+    this._templateSelector = templateSelector;
+  }
+
+  // Конструкция из шаблона
+  createElement(_name, _link)
+  {
+    const _elementTemplate = document.querySelector(this._templateSelector).content;
+    const _elementHTML = _elementTemplate.querySelector('.element').cloneNode(true);
+
+    const image = _elementHTML.querySelector('.element__image');
+    image.src = this._link;
+    image.alt = this._name;
+    _elementHTML.querySelector('.element__text').textContent = this._name;
+
+    this._setEventListeners(_elementHTML);
+
+    return _elementHTML;
+  }
+
+  // Настройка эффектов
+  _setEventListeners(_elementHTML)
+  {
+    const _like = _elementHTML.querySelector('.element__like');
+    _like.addEventListener('click', () => _like.classList.toggle('element__like_checked'));
+
+    console.log(_elementHTML);
+    const _zoom = _elementHTML.querySelector('.element__zoom');
+    console.log(_zoom);
+    _zoom.addEventListener('click', () => this._showPopupZoom());
+
+    const _del = _elementHTML.querySelector('.element__delete');
+    _del.addEventListener('click', () => _del.parentElement.remove());
+  }
+
+  // Фото на весь экран
+  _showPopupZoom()
+  {
+    image.src = this._link;
+    image.alt = this._name;
+    text.textContent = this._name;
+
+    console.log(image);
+    showPopup(popupZoom);
+  }
+}
+
 //----------------------------------------------------
 //                      Popups
 //----------------------------------------------------
@@ -109,49 +161,13 @@ function handleFormSubmitAdd(evt)
   hidePopup(popupPlace);
 }
 
-//---------------Фото на весь экран-------------------
-function showPopupZoom(element)
-{
-  const link = element.querySelector('.element__image');
-  const name = element.querySelector('.element__text');
-
-  image.src = link.src;
-  image.alt = link.alt;
-  text.textContent = name.textContent;
-
-  showPopup(popupZoom);
-}
-
 //----------------------------------------------------
 //                Массив картинок
 //----------------------------------------------------
 // Добавление массива фотографий на форму
 initialCards.forEach(element =>
   {
-    const elementHTML = createElement(element.name, element.link);
+    const card = new Card(element.link, element.name, '.elementTemplate');
+    const elementHTML = card.createElement();
     elementsContainer.append(elementHTML);
   });
-
-// Конструкция из шаблона
-function createElement(localName, localLink)
-{
-  const elementTemplate = document.querySelector('.elementTemplate').content;
-  const elementHTML = elementTemplate.querySelector('.element').cloneNode(true);
-
-  const image = elementHTML.querySelector('.element__image');
-  image.src = localLink;
-  image.alt = localName;
-  elementHTML.querySelector('.element__text').textContent = localName;
-
-  // Настройка эффектов
-  const like = elementHTML.querySelector('.element__like');
-  like.addEventListener('click', () => like.classList.toggle('element__like_checked'));
-
-  const zoom = elementHTML.querySelector('.element__zoom');
-  zoom.addEventListener('click', () => showPopupZoom(elementHTML));
-
-  const del = elementHTML.querySelector('.element__delete');
-  del.addEventListener('click', () => del.parentElement.remove());
-
-  return elementHTML;
-}
