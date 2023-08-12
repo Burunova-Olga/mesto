@@ -51,9 +51,7 @@ class Card
     const _like = _elementHTML.querySelector('.element__like');
     _like.addEventListener('click', () => _like.classList.toggle('element__like_checked'));
 
-    console.log(_elementHTML);
     const _zoom = _elementHTML.querySelector('.element__zoom');
-    console.log(_zoom);
     _zoom.addEventListener('click', () => this._showPopupZoom());
 
     const _del = _elementHTML.querySelector('.element__delete');
@@ -67,7 +65,6 @@ class Card
     image.alt = this._name;
     text.textContent = this._name;
 
-    console.log(image);
     showPopup(popupZoom);
   }
 }
@@ -129,7 +126,7 @@ function showPopupEdit()
   nameInput.value = nameOutput.textContent;
   descriptionInput.value = descriptionOutput.textContent;
 
-  validatePopup(popupProfile, selectorsList);
+  validatorProfile.preValidation(false);
 }
 
 // Внести на страницу новые данные профиля
@@ -145,7 +142,13 @@ function handleFormSubmit(evt)
 }
 
 //-----------Добавление нового элемента---------------
-addBtns.addEventListener('click', () => showPopup(popupPlace));
+addBtns.addEventListener('click', showPopupAdd);
+function showPopupAdd()
+{
+  console.log(1);
+  showPopup(popupPlace);
+  validatorPlace.preValidation(true);
+}
 
 formElementPlace.addEventListener('submit', handleFormSubmitAdd);
 // Добавление пользовательской фото на страницу
@@ -153,10 +156,9 @@ function handleFormSubmitAdd(evt)
 {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
 
-  const elementHTML = createElement(placeInput.value, linkInput.value);
+  const card = new Card(linkInput.value, placeInput.value, '.elementTemplate');
+  const elementHTML = card.createElement();
   elementsContainer.prepend(elementHTML);
-
-  evt.target.reset();
 
   hidePopup(popupPlace);
 }
