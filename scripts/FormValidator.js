@@ -1,19 +1,16 @@
-//----------------------------------------------------
-//                    Валидация
-//----------------------------------------------------
-class FormValidator
+export class FormValidator
 {
-  constructor(selectors, form)
+  constructor(validationConfig, form)
   {
-    this._selectors = selectors;
+    this._config = validationConfig;
     this._formElement = form;
   }
 
   // Настройка события ввода во все input
   enableValidation()
   {
-    const inputList = Array.from(this._formElement.querySelectorAll(this._selectors.inputSelector));
-    const buttonElement  = this._formElement.querySelector(this._selectors.submitButtonSelector);
+    const inputList = Array.from(this._formElement.querySelectorAll(this._config.inputSelector));
+    const buttonElement  = this._formElement.querySelector(this._config.submitButtonSelector);
     // this._toggleButtonState(inputList, buttonElement);
 
     // Настройка события ввода
@@ -32,8 +29,8 @@ class FormValidator
   // Но я не уверена, что это будет соответствовать заданию
   preValidation(hasEmptyFields)
   {
-    const inputList = Array.from(this._formElement.querySelectorAll(this._selectors.inputSelector));
-    const buttonElement  = this._formElement.querySelector(this._selectors.submitButtonSelector);
+    const inputList = Array.from(this._formElement.querySelectorAll(this._config.inputSelector));
+    const buttonElement  = this._formElement.querySelector(this._config.submitButtonSelector);
     if (hasEmptyFields)
     {
       inputList.forEach((inputElement) => { this._hideInputError(inputElement); });
@@ -58,20 +55,20 @@ class FormValidator
   // Вывод ошибки
   _showInputError = (inputElement, errorMessage) =>
   {
-    inputElement.classList.add(this._selectors.inputErrorClass);
+    inputElement.classList.add(this._config.inputErrorClass);
 
     const errorElement = this._formElement.querySelector(`.${inputElement.id}-error`);
     errorElement.textContent = errorMessage;
-    errorElement.classList.add(this._selectors.errorClass);
+    errorElement.classList.add(this._config.errorClass);
   };
 
   // Скрытие ошибки
   _hideInputError = (inputElement) =>
   {
-    inputElement.classList.remove(this._selectors.inputErrorClass);
+    inputElement.classList.remove(this._config.inputErrorClass);
 
     const errorElement = this._formElement.querySelector(`.${inputElement.id}-error`);
-    errorElement.classList.remove(this._selectors.errorClass);
+    errorElement.classList.remove(this._config.errorClass);
     errorElement.textContent = '';
   };
 
@@ -97,21 +94,13 @@ class FormValidator
   _enabledButton = (buttonElement) =>
   {
     buttonElement.removeAttribute('disabled');
-    buttonElement.classList.remove(this._selectors.inactiveButtonClass);
+    buttonElement.classList.remove(this._config.inactiveButtonClass);
   };
 
   // Установка кнопки в неактивное состояние
   _disabledButton = (buttonElement) =>
   {
     buttonElement.setAttribute('disabled', true);
-    buttonElement.classList.add(this._selectors.inactiveButtonClass);
+    buttonElement.classList.add(this._config.inactiveButtonClass);
   };
 }
-
-const validatorProfile = new FormValidator(selectorsList, formElementProfile);
-const validatorPlace = new FormValidator(selectorsList, formElementPlace);
-
-// Вызов функции
-validatorProfile.enableValidation();
-validatorPlace.enableValidation();
-

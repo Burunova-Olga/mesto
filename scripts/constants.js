@@ -26,7 +26,7 @@ const initialCards =
   }
 ];
 
-const selectorsList =
+const validationConfig =
 {
   formSelector: '.form-popup',
   inputSelector: '.form-popup__input',
@@ -35,3 +35,11 @@ const selectorsList =
   inputErrorClass: 'form-popup__input_error',
   errorClass: 'form-popup__input-error_visible'
 };
+
+const cardConfig =
+{
+  imageSelector: '.photo__image',
+  textSelector: '.photo__text'
+}
+
+export {initialCards, validationConfig, cardConfig};

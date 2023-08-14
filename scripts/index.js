@@ -1,3 +1,7 @@
+import { Card } from './Card.js'
+import { FormValidator } from './FormValidator.js'
+import { initialCards, validationConfig, cardConfig } from './constants.js';
+
 const elementsContainer = document.querySelector('.elements');
 const popupProfile = document.querySelector('.popup_type_profile');
 const popupZoom = document.querySelector('.popup_type_zoom');
@@ -17,57 +21,8 @@ const formElementPlace = popupPlace.querySelector('.form-popup_type_place');
 const placeInput = formElementPlace.querySelector('#input-place');
 const linkInput = formElementPlace.querySelector('#input-link');
 
-const image = popupZoom.querySelector('.photo__image');
-const text = popupZoom.querySelector('.photo__text');
-
-class Card
-{
-  constructor(link, name, templateSelector)
-  {
-    this._link = link;
-    this._name = name;
-    this._templateSelector = templateSelector;
-  }
-
-  // Конструкция из шаблона
-  createElement(_name, _link)
-  {
-    const _elementTemplate = document.querySelector(this._templateSelector).content;
-    const _elementHTML = _elementTemplate.querySelector('.element').cloneNode(true);
-
-    const image = _elementHTML.querySelector('.element__image');
-    image.src = this._link;
-    image.alt = this._name;
-    _elementHTML.querySelector('.element__text').textContent = this._name;
-
-    this._setEventListeners(_elementHTML);
-
-    return _elementHTML;
-  }
-
-  // Настройка эффектов
-  _setEventListeners(_elementHTML)
-  {
-    const _like = _elementHTML.querySelector('.element__like');
-    _like.addEventListener('click', () => _like.classList.toggle('element__like_checked'));
-
-    const _zoom = _elementHTML.querySelector('.element__zoom');
-    _zoom.addEventListener('click', () => this._showPopupZoom());
-
-    const _del = _elementHTML.querySelector('.element__delete');
-    _del.addEventListener('click', () => _del.parentElement.remove());
-  }
-
-  // Фото на весь экран
-  _showPopupZoom()
-  {
-    image.src = this._link;
-    image.alt = this._name;
-    text.textContent = this._name;
-
-    showPopup(popupZoom);
-  }
-}
+const validatorProfile = new FormValidator(validationConfig, formElementProfile);
+const validatorPlace = new FormValidator(validationConfig, formElementPlace);
 
 //----------------------------------------------------
 //                      Popups
@@ -145,7 +100,6 @@ function handleFormSubmit(evt)
 addBtns.addEventListener('click', showPopupAdd);
 function showPopupAdd()
 {
-  console.log(1);
   showPopup(popupPlace);
   validatorPlace.preValidation(true);
 }
@@ -156,7 +110,7 @@ function handleFormSubmitAdd(evt)
 {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
 
-  const card = new Card(linkInput.value, placeInput.value, '.elementTemplate');
+  const card = new Card(linkInput.value, placeInput.value, cardConfig, popupZoom, '.elementTemplate');
   const elementHTML = card.createElement();
   elementsContainer.prepend(elementHTML);
 
@@ -169,7 +123,13 @@ function handleFormSubmitAdd(evt)
 // Добавление массива фотографий на форму
 initialCards.forEach(element =>
   {
-    const card = new Card(element.link, element.name, '.elementTemplate');
+    const card = new Card(element.link, element.name, cardConfig, popupZoom, '.elementTemplate');
     const elementHTML = card.createElement();
     elementsContainer.append(elementHTML);
   });
+
+// Вызов функции валидации
+validatorProfile.enableValidation();
+validatorPlace.enableValidation();
+
+export {showPopup};
