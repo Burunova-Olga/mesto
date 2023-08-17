@@ -1,6 +1,6 @@
 import { Card } from './Card.js'
 import { FormValidator } from './FormValidator.js'
-import { initialCards, validationConfig, cardConfig } from './constants.js';
+import { initialCards, validationConfig } from './constants.js';
 
 const elementsContainer = document.querySelector('.elements');
 const popupProfile = document.querySelector('.popup_type_profile');
@@ -8,7 +8,6 @@ const popupZoom = document.querySelector('.popup_type_zoom');
 const popupPlace = document.querySelector('.popup_type_places');
 const nameOutput = document.querySelector('.profile__name');
 const descriptionOutput = document.querySelector('.profile__description');
-const closeBtns = document.querySelectorAll('.close__button');
 const popups = document.querySelectorAll('.popup');
 const editBtn = document.querySelector('.profile__edit');
 const addBtns = document.querySelector('.profile__add');
@@ -20,9 +19,6 @@ const descriptionInput = formElementProfile.querySelector('#input-description');
 const formElementPlace = popupPlace.querySelector('.form-popup_type_place');
 const placeInput = formElementPlace.querySelector('#input-place');
 const linkInput = formElementPlace.querySelector('#input-link');
-
-const validatorProfile = new FormValidator(validationConfig, formElementProfile);
-const validatorPlace = new FormValidator(validationConfig, formElementPlace);
 
 //----------------------------------------------------
 //                      Popups
@@ -39,21 +35,23 @@ function listenEsc(evt)
   }
 }
 
+// Клик на overlay и close
+popups.forEach((popup) =>
+{
+    popup.addEventListener('mousedown', (evt) =>
+    {
+      if (evt.target.classList.contains('popup_opened') ||
+          evt.target.classList.contains('close__button'))
+        hidePopup(popup);
+    })
+});
+
 // Открытие popup
 function showPopup(popup)
 {
-  const form = popup.querySelector('.form-popup');
-  // Popup с картинкой формы не имеет
-  if (form != null)
-    form.reset();
-
   popup.classList.add("popup_opened");
   document.addEventListener('keydown', listenEsc);
 }
-
-// Нажатие Close
-for (let i = 0; i < closeBtns.length; i++)
-  closeBtns[i].addEventListener('click', () => hidePopup(closeBtns[i].closest(".popup")));
 
 // Закрытие popup
 function hidePopup(popup)
@@ -61,15 +59,6 @@ function hidePopup(popup)
   popup.classList.remove("popup_opened");
   document.removeEventListener('keydown', listenEsc);
 }
-
-popups.forEach((popup) =>
-{
-  popup.addEventListener('click', (evt) =>
-  {
-    if (evt.target.classList.contains('popup'))
-      hidePopup(evt.target);
-  });
-});
 
 //------------Изменение данных профиля----------------
 // Открыть форму редактирования профиля
@@ -81,12 +70,13 @@ function showPopupEdit()
   nameInput.value = nameOutput.textContent;
   descriptionInput.value = descriptionOutput.textContent;
 
-  validatorProfile.preValidation(false);
+  formValidators['form-popup_type_profile'].preValidation(false);
+  // validatorProfile.preValidation(false);
 }
 
 // Внести на страницу новые данные профиля
-formElementProfile.addEventListener('submit', handleFormSubmit);
-function handleFormSubmit(evt)
+formElementProfile.addEventListener('submit', handleFormSubmitProfile);
+function handleFormSubmitProfile(evt)
 {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
 
@@ -97,11 +87,22 @@ function handleFormSubmit(evt)
 }
 
 //-----------Добавление нового элемента---------------
+function createCard(link, name)
+{
+  const card = new Card(link, name, showPopupZoom, '.elementTemplate');
+  return card.createElement();
+}
+
 addBtns.addEventListener('click', showPopupAdd);
 function showPopupAdd()
 {
   showPopup(popupPlace);
-  validatorPlace.preValidation(true);
+
+  const form = popupPlace.querySelector('.form-popup');
+  form.reset();
+
+  formValidators['form-popup_type_place'].preValidation(true);
+  // validatorPlace.preValidation(true);
 }
 
 formElementPlace.addEventListener('submit', handleFormSubmitAdd);
@@ -110,26 +111,58 @@ function handleFormSubmitAdd(evt)
 {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
 
-  const card = new Card(linkInput.value, placeInput.value, cardConfig, popupZoom, '.elementTemplate');
-  const elementHTML = card.createElement();
-  elementsContainer.prepend(elementHTML);
+  elementsContainer.prepend(createCard(linkInput.value, placeInput.value));
 
   hidePopup(popupPlace);
+}
+
+// Фото на весь экран
+function showPopupZoom(name, link)
+{
+  const image = popupZoom.querySelector('.photo__image');
+  const text = popupZoom.querySelector('.photo__text');
+
+  image.src = link;
+  image.alt = name;
+  text.textContent = name;
+
+  showPopup(popupZoom);
 }
 
 //----------------------------------------------------
 //                Массив картинок
 //----------------------------------------------------
 // Добавление массива фотографий на форму
-initialCards.forEach(element =>
+initialCards.forEach(element => { elementsContainer.append(createCard(element.link, element.name));});
+
+//----------------------------------------------------
+//                  Валидация
+//----------------------------------------------------
+/*
+  const validatorProfile = new FormValidator(validationConfig, formElementProfile);
+  const validatorPlace = new FormValidator(validationConfig, formElementPlace);
+
+  // Вызов функции валидации
+  validatorProfile.enableValidation();
+  validatorPlace.enableValidation();
+*/
+
+const formValidators = (function()
+{
+  const formValidators = {};
+  const formList = Array.from(document.querySelectorAll(validationConfig.formSelector))
+
+  formList.forEach((formElement) =>
   {
-    const card = new Card(element.link, element.name, cardConfig, popupZoom, '.elementTemplate');
-    const elementHTML = card.createElement();
-    elementsContainer.append(elementHTML);
+    const validator = new FormValidator(validationConfig, formElement);
+    const formName = formElement.getAttribute('name');
+    formValidators[formName] = validator;
   });
 
-// Вызов функции валидации
-validatorProfile.enableValidation();
-validatorPlace.enableValidation();
+  return formValidators;
+}());
 
-export {showPopup};
+formValidators['form-popup_type_profile'].enableValidation();
+formValidators['form-popup_type_place'].enableValidation();
+
+

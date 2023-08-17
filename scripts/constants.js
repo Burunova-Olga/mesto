@@ -36,10 +36,4 @@ const validationConfig =
   errorClass: 'form-popup__input-error_visible'
 };
 
-const cardConfig =
-{
-  imageSelector: '.photo__image',
-  textSelector: '.photo__text'
-}
-
-export {initialCards, validationConfig, cardConfig};
+export {initialCards, validationConfig};

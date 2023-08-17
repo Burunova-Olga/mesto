@@ -4,42 +4,37 @@ export class FormValidator
   {
     this._config = validationConfig;
     this._formElement = form;
+
+    this._inputList = Array.from(this._formElement.querySelectorAll(this._config.inputSelector));
+    this._buttonElement  = this._formElement.querySelector(this._config.submitButtonSelector);
   }
 
   // Настройка события ввода во все input
   enableValidation()
   {
-    const inputList = Array.from(this._formElement.querySelectorAll(this._config.inputSelector));
-    const buttonElement  = this._formElement.querySelector(this._config.submitButtonSelector);
-    // this._toggleButtonState(inputList, buttonElement);
-
     // Настройка события ввода
-    inputList.forEach((inputElement) =>
+    this._inputList.forEach((inputElement) =>
     {
       inputElement.addEventListener('input', () =>
       {
         this._isValid(inputElement);
-        this._toggleButtonState(inputList, buttonElement);
+        this._toggleButtonState();
       });
     });
   }
 
   // Проверка значений, введённых программно
-  // Можно сделать через 2 потомков для каждого вида popup
-  // Но я не уверена, что это будет соответствовать заданию
   preValidation(hasEmptyFields)
   {
-    const inputList = Array.from(this._formElement.querySelectorAll(this._config.inputSelector));
-    const buttonElement  = this._formElement.querySelector(this._config.submitButtonSelector);
     if (hasEmptyFields)
     {
-      inputList.forEach((inputElement) => { this._hideInputError(inputElement); });
-      this._disabledButton(buttonElement);
+      this._inputList.forEach((inputElement) => { this._hideInputError(inputElement); });
+      this._disabledButton();
     }
     else
     {
-      inputList.forEach((inputElement) => { this._isValid(inputElement); });
-      this._toggleButtonState(inputList, buttonElement);
+      this._inputList.forEach((inputElement) => { this._isValid(inputElement); });
+      this._toggleButtonState();
     }
   }
 
@@ -73,34 +68,34 @@ export class FormValidator
   };
 
   // Button enable
-  _toggleButtonState (inputList, buttonElement)
+  _toggleButtonState ()
   {
-    if (this._hasInvalidInput(inputList))
-      this._disabledButton(buttonElement);
+    if (this._hasInvalidInput())
+      this._disabledButton();
     else
-      this._enabledButton(buttonElement);
+      this._enabledButton();
   }
 
   // Есть ли хоть один не валидный
-  _hasInvalidInput = (inputList) =>
+  _hasInvalidInput = () =>
   {
-    return inputList.some((inputElement) =>
+    return this._inputList.some((inputElement) =>
     {
       return !inputElement.validity.valid;
     });
   }
 
   // Установка кнопки в активное состояние
-  _enabledButton = (buttonElement) =>
+  _enabledButton = () =>
   {
-    buttonElement.removeAttribute('disabled');
-    buttonElement.classList.remove(this._config.inactiveButtonClass);
+    this._buttonElement.removeAttribute('disabled');
+    this._buttonElement.classList.remove(this._config.inactiveButtonClass);
   };
 
   // Установка кнопки в неактивное состояние
-  _disabledButton = (buttonElement) =>
+  _disabledButton = () =>
   {
-    buttonElement.setAttribute('disabled', true);
-    buttonElement.classList.add(this._config.inactiveButtonClass);
+    this._buttonElement.setAttribute('disabled', true);
+    this._buttonElement.classList.add(this._config.inactiveButtonClass);
   };
 }
