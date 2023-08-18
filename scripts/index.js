@@ -20,6 +20,9 @@ const formElementPlace = popupPlace.querySelector('.form-popup_type_place');
 const placeInput = formElementPlace.querySelector('#input-place');
 const linkInput = formElementPlace.querySelector('#input-link');
 
+const image = popupZoom.querySelector('.photo__image');
+const text = popupZoom.querySelector('.photo__text');
+
 //----------------------------------------------------
 //                      Popups
 //----------------------------------------------------
@@ -71,7 +74,6 @@ function showPopupEdit()
   descriptionInput.value = descriptionOutput.textContent;
 
   formValidators['form-popup_type_profile'].preValidation(false);
-  // validatorProfile.preValidation(false);
 }
 
 // Внести на страницу новые данные профиля
@@ -98,11 +100,9 @@ function showPopupAdd()
 {
   showPopup(popupPlace);
 
-  const form = popupPlace.querySelector('.form-popup');
-  form.reset();
+  formElementPlace.reset();
 
   formValidators['form-popup_type_place'].preValidation(true);
-  // validatorPlace.preValidation(true);
 }
 
 formElementPlace.addEventListener('submit', handleFormSubmitAdd);
@@ -119,9 +119,6 @@ function handleFormSubmitAdd(evt)
 // Фото на весь экран
 function showPopupZoom(name, link)
 {
-  const image = popupZoom.querySelector('.photo__image');
-  const text = popupZoom.querySelector('.photo__text');
-
   image.src = link;
   image.alt = name;
   text.textContent = name;
@@ -138,15 +135,33 @@ initialCards.forEach(element => { elementsContainer.append(createCard(element.li
 //----------------------------------------------------
 //                  Валидация
 //----------------------------------------------------
+// Мне не нравится этот вариант.
+// Заполнение formValidators происходит неявно. Постороннему человеку будет сложно догадаться смотреть его заполнение в функции вызова всей валидации разом.
+// Я считаю неправильным, что включение валидации происходит автоматически, внутри функции, а вызов превалидации (валидации в момент открытия формы) - через обращение к массиву.
+// Гораздо логичнее использовать один и тот же подход для вызова всех функций одной сущности.
+// Я понимаю, что количество итераций ограничено, так что пусть будет как скажете.
+// Хотя это было меткой "можно лучше"((
+
+const formValidators = {};
+
+(function()
+{
+  const formValidators = {};
+  const formList = Array.from(document.querySelectorAll(validationConfig.formSelector))
+
+  formList.forEach((formElement) =>
+  {
+    const validator = new FormValidator(validationConfig, formElement);
+    const formName = formElement.getAttribute('name');
+
+     formValidators[formName] = validator;
+     validator.enableValidation();
+  });
+
+  return formValidators;
+}());
+
 /*
-  const validatorProfile = new FormValidator(validationConfig, formElementProfile);
-  const validatorPlace = new FormValidator(validationConfig, formElementPlace);
-
-  // Вызов функции валидации
-  validatorProfile.enableValidation();
-  validatorPlace.enableValidation();
-*/
-
 const formValidators = (function()
 {
   const formValidators = {};
@@ -164,5 +179,5 @@ const formValidators = (function()
 
 formValidators['form-popup_type_profile'].enableValidation();
 formValidators['form-popup_type_place'].enableValidation();
-
+*/
 
