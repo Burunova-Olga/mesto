@@ -136,32 +136,12 @@ initialCards.forEach(element => { elementsContainer.append(createCard(element.li
 //                  Валидация
 //----------------------------------------------------
 // Мне не нравится этот вариант.
-// Заполнение formValidators происходит неявно. Постороннему человеку будет сложно догадаться смотреть его заполнение в функции вызова всей валидации разом.
-// Я считаю неправильным, что включение валидации происходит автоматически, внутри функции, а вызов превалидации (валидации в момент открытия формы) - через обращение к массиву.
+// Я считаю неправильным, что включение валидации происходит автоматически, внутри функции, а вызов
+// превалидации (валидации в момент открытия формы) - через обращение к массиву.
 // Гораздо логичнее использовать один и тот же подход для вызова всех функций одной сущности.
-// Я понимаю, что количество итераций ограничено, так что пусть будет как скажете.
+// Но количество итераций ограничено, так что пусть будет как скажете.
 // Хотя это было меткой "можно лучше"((
 
-const formValidators = {};
-
-(function()
-{
-  const formValidators = {};
-  const formList = Array.from(document.querySelectorAll(validationConfig.formSelector))
-
-  formList.forEach((formElement) =>
-  {
-    const validator = new FormValidator(validationConfig, formElement);
-    const formName = formElement.getAttribute('name');
-
-     formValidators[formName] = validator;
-     validator.enableValidation();
-  });
-
-  return formValidators;
-}());
-
-/*
 const formValidators = (function()
 {
   const formValidators = {};
@@ -172,12 +152,12 @@ const formValidators = (function()
     const validator = new FormValidator(validationConfig, formElement);
     const formName = formElement.getAttribute('name');
     formValidators[formName] = validator;
+
+    validator.enableValidation();
   });
 
   return formValidators;
 }());
 
-formValidators['form-popup_type_profile'].enableValidation();
-formValidators['form-popup_type_place'].enableValidation();
-*/
-
+// formValidators['form-popup_type_profile'].enableValidation();
+// formValidators['form-popup_type_place'].enableValidation();
