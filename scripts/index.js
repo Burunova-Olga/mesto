@@ -2,74 +2,36 @@ import Card from './Card.js'
 import { FormValidator } from './FormValidator.js'
 import { initialCards, validationConfig } from './constants.js';
 import Section from './Section.js';
+import Popup from './Popup.js';
 
-//const elementsContainer = document.querySelector('.elements');
-const popupProfile = document.querySelector('.popup_type_profile');
-const popupZoom = document.querySelector('.popup_type_zoom');
-const popupPlace = document.querySelector('.popup_type_places');
 const nameOutput = document.querySelector('.profile__name');
 const descriptionOutput = document.querySelector('.profile__description');
-const popups = document.querySelectorAll('.popup');
 const editBtn = document.querySelector('.profile__edit');
 const addBtns = document.querySelector('.profile__add');
-
-const formElementProfile = popupProfile.querySelector('.form-popup_type_profile');
-const nameInput = formElementProfile.querySelector('#input-name');
-const descriptionInput = formElementProfile.querySelector('#input-description');
-
-const formElementPlace = popupPlace.querySelector('.form-popup_type_place');
-const placeInput = formElementPlace.querySelector('#input-place');
-const linkInput = formElementPlace.querySelector('#input-link');
-
-const image = popupZoom.querySelector('.photo__image');
-const text = popupZoom.querySelector('.photo__text');
 
 //----------------------------------------------------
 //                      Popups
 //----------------------------------------------------
-function listenEsc(evt)
-{
-  if (evt.key === 'Escape')
-  {
-    popups.forEach((popup) =>
-    {
-      if (popup.classList.contains("popup_opened"))
-        hidePopup(popup);
-    });
-  }
-}
+const popupProfile = new Popup('.popup_type_profile');
+const formElementProfile = popupProfile.popup.querySelector('.form-popup_type_profile');
+const nameInput = formElementProfile.querySelector('#input-name');
+const descriptionInput = formElementProfile.querySelector('#input-description');
 
-// Клик на overlay и close
-popups.forEach((popup) =>
-{
-    popup.addEventListener('mousedown', (evt) =>
-    {
-      if (evt.target.classList.contains('popup_opened') ||
-          evt.target.classList.contains('close__button'))
-        hidePopup(popup);
-    })
-});
+const popupPlace = new Popup('.popup_type_places');
+const formElementPlace = popupPlace.popup.querySelector('.form-popup_type_place');
+const placeInput = formElementPlace.querySelector('#input-place');
+const linkInput = formElementPlace.querySelector('#input-link');
 
-// Открытие popup
-function showPopup(popup)
-{
-  popup.classList.add("popup_opened");
-  document.addEventListener('keydown', listenEsc);
-}
-
-// Закрытие popup
-function hidePopup(popup)
-{
-  popup.classList.remove("popup_opened");
-  document.removeEventListener('keydown', listenEsc);
-}
+const popupZoom = new Popup('.popup_type_zoom');
+const image = popupZoom.popup.querySelector('.photo__image');
+const text = popupZoom.popup.querySelector('.photo__text');
 
 //------------Изменение данных профиля----------------
 // Открыть форму редактирования профиля
 editBtn.addEventListener('click', showPopupEdit);
 function showPopupEdit()
 {
-  showPopup(popupProfile);
+  popupProfile.open();
 
   nameInput.value = nameOutput.textContent;
   descriptionInput.value = descriptionOutput.textContent;
@@ -86,20 +48,14 @@ function handleFormSubmitProfile(evt)
   nameOutput.textContent = nameInput.value;
   descriptionOutput.textContent = descriptionInput.value;
 
-  hidePopup(popupProfile);
+  popupProfile.close();
 }
 
 //-----------Добавление нового элемента---------------
-/*function createCard(link, name)
-{
-  const card = new Card(link, name, showPopupZoom, '.elementTemplate');
-  return card.createElement();
-}*/
-
 addBtns.addEventListener('click', showPopupAdd);
 function showPopupAdd()
 {
-  showPopup(popupPlace);
+  popupPlace.open();
 
   formElementPlace.reset();
 
@@ -112,11 +68,10 @@ function handleFormSubmitAdd(evt)
 {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
 
-  // elementsContainer.prepend(createCard(linkInput.value, placeInput.value));
   const card = new Card(linkInput.value, placeInput.value, showPopupZoom, '.elementTemplate');
   section.setItemBefore(card.createElement());
 
-  hidePopup(popupPlace);
+  popupPlace.close();
 }
 
 // Фото на весь экран
@@ -126,14 +81,13 @@ function showPopupZoom(name, link)
   image.alt = name;
   text.textContent = name;
 
-  showPopup(popupZoom);
+  popupZoom.open();
 }
 
 //----------------------------------------------------
 //                Массив картинок
 //----------------------------------------------------
 // Добавление массива фотографий на форму
-//initialCards.forEach(element => { elementsContainer.append(createCard(element.link, element.name));});
 const section = new Section(
   {
     data: initialCards,
@@ -144,7 +98,8 @@ const section = new Section(
       section.setItemAfter(cardElement);
     }
   }, '.elements');
-  section.renderItems();
+
+section.renderItems();
 
 //----------------------------------------------------
 //                  Валидация
