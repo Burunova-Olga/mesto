@@ -25,8 +25,6 @@ export default class Popup
   {
     if (evt.key === 'Escape')
     {
-      console.log(this.popup);
-      console.log(this.popup.classList);
       if (this.popup.classList.contains("popup_opened"))
         this.close();
     }

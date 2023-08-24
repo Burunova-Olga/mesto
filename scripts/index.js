@@ -3,6 +3,7 @@ import { FormValidator } from './FormValidator.js'
 import { initialCards, validationConfig } from './constants.js';
 import Section from './Section.js';
 import Popup from './Popup.js';
+import PopupWithImage from './PopupWithImage.js';
 
 const nameOutput = document.querySelector('.profile__name');
 const descriptionOutput = document.querySelector('.profile__description');
@@ -22,9 +23,7 @@ const formElementPlace = popupPlace.popup.querySelector('.form-popup_type_place'
 const placeInput = formElementPlace.querySelector('#input-place');
 const linkInput = formElementPlace.querySelector('#input-link');
 
-const popupZoom = new Popup('.popup_type_zoom');
-const image = popupZoom.popup.querySelector('.photo__image');
-const text = popupZoom.popup.querySelector('.photo__text');
+const popupZoom = new PopupWithImage('.popup_type_zoom');
 
 //------------Изменение данных профиля----------------
 // Открыть форму редактирования профиля
@@ -62,26 +61,21 @@ function showPopupAdd()
   formValidators['form-popup_type_place'].preValidation(true);
 }
 
+function openPopupZoom(link, name)
+{
+  popupZoom.open(link, name);
+}
+
 formElementPlace.addEventListener('submit', handleFormSubmitAdd);
 // Добавление пользовательской фото на страницу
 function handleFormSubmitAdd(evt)
 {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
 
-  const card = new Card(linkInput.value, placeInput.value, showPopupZoom, '.elementTemplate');
+  const card = new Card(linkInput.value, placeInput.value, openPopupZoom, '.elementTemplate');
   section.setItemBefore(card.createElement());
 
   popupPlace.close();
-}
-
-// Фото на весь экран
-function showPopupZoom(name, link)
-{
-  image.src = link;
-  image.alt = name;
-  text.textContent = name;
-
-  popupZoom.open();
 }
 
 //----------------------------------------------------
@@ -93,7 +87,7 @@ const section = new Section(
     data: initialCards,
     renderer: (item) =>
     {
-      const card = new Card(item.link, item.name, showPopupZoom, '.elementTemplate');
+      const card = new Card(item.link, item.name, openPopupZoom, '.elementTemplate');
       const cardElement = card.createElement();
       section.setItemAfter(cardElement);
     }

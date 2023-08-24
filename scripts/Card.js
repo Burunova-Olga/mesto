@@ -30,7 +30,7 @@ export default class Card
     this._likeBtn.addEventListener('click', () => this._likeBtn.classList.toggle('element__like_checked'));
 
     this._zoomPopup = this._elementHTML.querySelector('.element__zoom');
-    this._zoomPopup.addEventListener('click', () => this._handleCardClick(this._name, this._link));
+    this._zoomPopup.addEventListener('click', () => this._handleCardClick(this._link, this._name));
 
     this._deleteBtn = this._elementHTML.querySelector('.element__delete');
     this._deleteBtn.addEventListener('click', () => this._deleteBtn.closest('.element').remove());
