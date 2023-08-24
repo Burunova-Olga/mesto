@@ -1,8 +1,9 @@
-import { Card } from './Card.js'
+import Card from './Card.js'
 import { FormValidator } from './FormValidator.js'
 import { initialCards, validationConfig } from './constants.js';
+import Section from './Section.js';
 
-const elementsContainer = document.querySelector('.elements');
+//const elementsContainer = document.querySelector('.elements');
 const popupProfile = document.querySelector('.popup_type_profile');
 const popupZoom = document.querySelector('.popup_type_zoom');
 const popupPlace = document.querySelector('.popup_type_places');
@@ -89,11 +90,11 @@ function handleFormSubmitProfile(evt)
 }
 
 //-----------Добавление нового элемента---------------
-function createCard(link, name)
+/*function createCard(link, name)
 {
   const card = new Card(link, name, showPopupZoom, '.elementTemplate');
   return card.createElement();
-}
+}*/
 
 addBtns.addEventListener('click', showPopupAdd);
 function showPopupAdd()
@@ -111,7 +112,9 @@ function handleFormSubmitAdd(evt)
 {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
 
-  elementsContainer.prepend(createCard(linkInput.value, placeInput.value));
+  // elementsContainer.prepend(createCard(linkInput.value, placeInput.value));
+  const card = new Card(linkInput.value, placeInput.value, showPopupZoom, '.elementTemplate');
+  section.setItemBefore(card.createElement());
 
   hidePopup(popupPlace);
 }
@@ -130,7 +133,18 @@ function showPopupZoom(name, link)
 //                Массив картинок
 //----------------------------------------------------
 // Добавление массива фотографий на форму
-initialCards.forEach(element => { elementsContainer.append(createCard(element.link, element.name));});
+//initialCards.forEach(element => { elementsContainer.append(createCard(element.link, element.name));});
+const section = new Section(
+  {
+    data: initialCards,
+    renderer: (item) =>
+    {
+      const card = new Card(item.link, item.name, showPopupZoom, '.elementTemplate');
+      const cardElement = card.createElement();
+      section.setItemAfter(cardElement);
+    }
+  }, '.elements');
+  section.renderItems();
 
 //----------------------------------------------------
 //                  Валидация

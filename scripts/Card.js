@@ -1,7 +1,4 @@
-// Благодарю за совет) У меня не получилось придумать, как это правильно подключить
-// import { showPopup } from './index.js'
-
-export class Card
+export default class Card
 {
   constructor(link, name, handleCardClick, templateSelector)
   {
@@ -14,7 +11,7 @@ export class Card
   }
 
   // Конструкция из шаблона
-  createElement(_name, _link)
+  createElement()
   {
     const image = this._elementHTML.querySelector('.element__image');
     image.src = this._link;

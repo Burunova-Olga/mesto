@@ -1,0 +1,11 @@
+{
+  "name": "mesto",
+  "version": "0.0.1",
+  "description": "Учебный проект в рамках Яндекс-Практикума\r https://burunova-olga.github.io/mesto/",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Burunova Olga",
+  "license": "ISC"
+}
