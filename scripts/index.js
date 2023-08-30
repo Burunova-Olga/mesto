@@ -4,12 +4,12 @@ import { initialCards, validationConfig } from './constants.js';
 import Section from './Section.js';
 import PopupWithImage from './PopupWithImage.js';
 import PopupWithForm from './PopupWithForm.js';
+import UserInfo from './UserInfo.js';
 
-const nameOutput = document.querySelector('.profile__name');
-const descriptionOutput = document.querySelector('.profile__description');
 const editBtn = document.querySelector('.profile__edit');
 const addBtns = document.querySelector('.profile__add');
 
+const userInfo = new UserInfo('Жак-Ив Кусто', 'Исследователь океана');
 //----------------------------------------------------
 //                      Popups
 //----------------------------------------------------
@@ -25,8 +25,9 @@ function showPopupEdit()
 {
   popupProfile.open();
 
-  popupProfile.formElement.querySelector('#input-name').value = nameOutput.textContent;
-  popupProfile.formElement.querySelector('#input-description').value = descriptionOutput.textContent;
+  const [name, description] = userInfo.getUserInfo();
+  popupProfile.formElement.querySelector('#input-name').value = name;
+  popupProfile.formElement.querySelector('#input-description').value = description;
 
   formValidators['form-popup_type_profile'].preValidation(false);
 }
@@ -34,8 +35,7 @@ function showPopupEdit()
 // Внести на страницу новые данные профиля
 function handleFormSubmitProfile()
 {
-  nameOutput.textContent = popupProfile.inputValues.get('input-name');
-  descriptionOutput.textContent = popupProfile.inputValues.get('input-description');
+  userInfo.setUserInfo(popupProfile.inputValues.get('input-name'), popupProfile.inputValues.get('input-description'));
 }
 
 //-----------Добавление нового элемента---------------
