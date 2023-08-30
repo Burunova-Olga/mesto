@@ -5,9 +5,6 @@ export default class PopupWithImage extends Popup
   // Открытие фото на весь экран
   open(link, name)
   {
-    console.log(link);
-    console.log(name);
-
     const image = this.popup.querySelector('.photo__image');
     const text = this.popup.querySelector('.photo__text');
 

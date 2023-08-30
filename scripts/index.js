@@ -2,8 +2,8 @@ import Card from './Card.js'
 import { FormValidator } from './FormValidator.js'
 import { initialCards, validationConfig } from './constants.js';
 import Section from './Section.js';
-import Popup from './Popup.js';
 import PopupWithImage from './PopupWithImage.js';
+import PopupWithForm from './PopupWithForm.js';
 
 const nameOutput = document.querySelector('.profile__name');
 const descriptionOutput = document.querySelector('.profile__description');
@@ -13,41 +13,29 @@ const addBtns = document.querySelector('.profile__add');
 //----------------------------------------------------
 //                      Popups
 //----------------------------------------------------
-const popupProfile = new Popup('.popup_type_profile');
-const formElementProfile = popupProfile.popup.querySelector('.form-popup_type_profile');
-const nameInput = formElementProfile.querySelector('#input-name');
-const descriptionInput = formElementProfile.querySelector('#input-description');
-
-const popupPlace = new Popup('.popup_type_places');
-const formElementPlace = popupPlace.popup.querySelector('.form-popup_type_place');
-const placeInput = formElementPlace.querySelector('#input-place');
-const linkInput = formElementPlace.querySelector('#input-link');
-
+const popupProfile = new PopupWithForm('.popup_type_profile', handleFormSubmitProfile);
+const popupPlace = new PopupWithForm('.popup_type_places', handleFormSubmitAdd);
 const popupZoom = new PopupWithImage('.popup_type_zoom');
 
 //------------Изменение данных профиля----------------
+
 // Открыть форму редактирования профиля
 editBtn.addEventListener('click', showPopupEdit);
 function showPopupEdit()
 {
   popupProfile.open();
 
-  nameInput.value = nameOutput.textContent;
-  descriptionInput.value = descriptionOutput.textContent;
+  popupProfile.formElement.querySelector('#input-name').value = nameOutput.textContent;
+  popupProfile.formElement.querySelector('#input-description').value = descriptionOutput.textContent;
 
   formValidators['form-popup_type_profile'].preValidation(false);
 }
 
 // Внести на страницу новые данные профиля
-formElementProfile.addEventListener('submit', handleFormSubmitProfile);
-function handleFormSubmitProfile(evt)
+function handleFormSubmitProfile()
 {
-  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-
-  nameOutput.textContent = nameInput.value;
-  descriptionOutput.textContent = descriptionInput.value;
-
-  popupProfile.close();
+  nameOutput.textContent = popupProfile.inputValues.get('input-name');
+  descriptionOutput.textContent = popupProfile.inputValues.get('input-description');
 }
 
 //-----------Добавление нового элемента---------------
@@ -55,9 +43,6 @@ addBtns.addEventListener('click', showPopupAdd);
 function showPopupAdd()
 {
   popupPlace.open();
-
-  formElementPlace.reset();
-
   formValidators['form-popup_type_place'].preValidation(true);
 }
 
@@ -66,16 +51,11 @@ function openPopupZoom(link, name)
   popupZoom.open(link, name);
 }
 
-formElementPlace.addEventListener('submit', handleFormSubmitAdd);
 // Добавление пользовательской фото на страницу
-function handleFormSubmitAdd(evt)
+function handleFormSubmitAdd()
 {
-  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-
-  const card = new Card(linkInput.value, placeInput.value, openPopupZoom, '.elementTemplate');
+  const card = new Card(popupPlace.inputValues.get('input-link'), popupPlace.inputValues.get('input-place'), openPopupZoom, '.elementTemplate');
   section.setItemBefore(card.createElement());
-
-  popupPlace.close();
 }
 
 //----------------------------------------------------
