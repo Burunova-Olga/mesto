@@ -1,22 +1,27 @@
-import Card from './Card.js'
-import { FormValidator } from './FormValidator.js'
-import { initialCards, validationConfig } from './constants.js';
-import Section from './Section.js';
-import PopupWithImage from './PopupWithImage.js';
-import PopupWithForm from './PopupWithForm.js';
-import UserInfo from './UserInfo.js';
+import './index.css';
 
-const editBtn = document.querySelector('.profile__edit');
-const addBtns = document.querySelector('.profile__add');
+import Card from './components/Card.js'
+import { FormValidator } from './components/FormValidator.js'
+import Section from './components/Section.js';
+import PopupWithForm from './components/PopupWithForm.js';
+import
+{
+  initialCards,
+  validationConfig,
+  // popupProfile,
+  // popupPlace,
+  popupZoom,
+  userInfo,
+  editBtn,
+  addBtn
+} from './components/constants.js';
 
-const userInfo = new UserInfo('Жак-Ив Кусто', 'Исследователь океана');
+const popupProfile = new PopupWithForm('.popup_type_profile', handleFormSubmitProfile);
+const popupPlace = new PopupWithForm('.popup_type_places', handleFormSubmitAdd);
+
 //----------------------------------------------------
 //                      Popups
 //----------------------------------------------------
-const popupProfile = new PopupWithForm('.popup_type_profile', handleFormSubmitProfile);
-const popupPlace = new PopupWithForm('.popup_type_places', handleFormSubmitAdd);
-const popupZoom = new PopupWithImage('.popup_type_zoom');
-
 //------------Изменение данных профиля----------------
 
 // Открыть форму редактирования профиля
@@ -39,7 +44,7 @@ function handleFormSubmitProfile()
 }
 
 //-----------Добавление нового элемента---------------
-addBtns.addEventListener('click', showPopupAdd);
+addBtn.addEventListener('click', showPopupAdd);
 function showPopupAdd()
 {
   popupPlace.open();
@@ -104,3 +109,4 @@ const formValidators = (function()
 
 // formValidators['form-popup_type_profile'].enableValidation();
 // formValidators['form-popup_type_place'].enableValidation();
+

@@ -1,3 +1,15 @@
+import PopupWithImage from './PopupWithImage.js';
+import PopupWithForm from './PopupWithForm.js';
+import UserInfo from './UserInfo.js';
+
+// const popupProfile = new PopupWithForm('.popup_type_profile', handleFormSubmitProfile);
+// const popupPlace = new PopupWithForm('.popup_type_places', handleFormSubmitAdd);
+const popupZoom = new PopupWithImage('.popup_type_zoom');
+const userInfo = new UserInfo('Жак-Ив Кусто', 'Исследователь океана');
+
+const editBtn = document.querySelector('.profile__edit');
+const addBtn = document.querySelector('.profile__add');
+
 const initialCards =
 [
   {
@@ -36,4 +48,4 @@ const validationConfig =
   errorClass: 'form-popup__input-error_visible'
 };
 
-export {initialCards, validationConfig};
+export {initialCards, validationConfig, /*popupProfile, popupPlace, */popupZoom, userInfo, editBtn, addBtn};
