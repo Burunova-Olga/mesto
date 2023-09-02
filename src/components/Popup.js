@@ -3,21 +3,23 @@ export default class Popup
   constructor(popupSelector)
   {
     this.popup = document.querySelector(popupSelector);
-    this.setEventListeners();
+
+    this._handleEscClose = this._handleEscClose.bind(this);
+    this._setEventListeners();
   }
 
   // Открытие popup
   open()
   {
     this.popup.classList.add("popup_opened");
-    document.addEventListener('keydown', this._handleEscClose.bind(this));
+    document.addEventListener('keydown', this._handleEscClose);
   }
 
   // Закрытие popup
   close()
   {
     this.popup.classList.remove("popup_opened");
-    document.removeEventListener('keydown', this._handleEscClose.bind(this));
+    document.removeEventListener('keydown', this._handleEscClose);
   }
 
   // Отслеживание нажатия Esc
@@ -25,13 +27,12 @@ export default class Popup
   {
     if (evt.key === 'Escape')
     {
-      if (this.popup.classList.contains("popup_opened"))
-        this.close();
+      this.close();
     }
   }
 
   // Клик на overlay и close
-  setEventListeners()
+  _setEventListeners()
   {
     this.popup.addEventListener('mousedown', (evt) =>
     {

@@ -7,7 +7,7 @@ module.exports =
 {
   entry:
   {
-    main: './src/index.js'
+    main: './src/pages/index.js'
   },
   output:
   {

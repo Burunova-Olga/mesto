@@ -11,21 +11,21 @@ export default class PopupWithForm extends Popup
   _getInputValues()
   {
     // создаём объект FormData, передаём в него элемент формы
-    this.inputValues = new FormData(this.formElement);
+    return new FormData(this.formElement);
   }
 
 
   // Обработчик submit
-  setEventListeners()
+  _setEventListeners()
   {
-    super.setEventListeners();
+    super._setEventListeners();
 
     this.formElement = this.popup.querySelector('.form-popup');
     this.formElement.addEventListener('submit', (evt) =>
     {
       evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
       this._getInputValues();
-      this._handleFormSubmit();
+      this._handleFormSubmit(this._getInputValues());
       this.close();
     });
   }

@@ -1,20 +1,18 @@
 import './index.css';
 
-import Card from './components/Card.js'
-import { FormValidator } from './components/FormValidator.js'
-import Section from './components/Section.js';
-import PopupWithForm from './components/PopupWithForm.js';
+import Card from '../components/Card.js'
+import { FormValidator } from '../components/FormValidator.js'
+import Section from '../components/Section.js';
+import PopupWithForm from '../components/PopupWithForm.js';
 import
 {
   initialCards,
   validationConfig,
-  // popupProfile,
-  // popupPlace,
   popupZoom,
   userInfo,
   editBtn,
   addBtn
-} from './components/constants.js';
+} from '../utils/constants.js';
 
 const popupProfile = new PopupWithForm('.popup_type_profile', handleFormSubmitProfile);
 const popupPlace = new PopupWithForm('.popup_type_places', handleFormSubmitAdd);
@@ -38,9 +36,9 @@ function showPopupEdit()
 }
 
 // Внести на страницу новые данные профиля
-function handleFormSubmitProfile()
+function handleFormSubmitProfile(inputValues)
 {
-  userInfo.setUserInfo(popupProfile.inputValues.get('input-name'), popupProfile.inputValues.get('input-description'));
+  userInfo.setUserInfo(inputValues.get('input-name'), inputValues.get('input-description'));
 }
 
 //-----------Добавление нового элемента---------------
@@ -56,40 +54,35 @@ function openPopupZoom(link, name)
   popupZoom.open(link, name);
 }
 
-// Добавление пользовательской фото на страницу
-function handleFormSubmitAdd()
-{
-  const card = new Card(popupPlace.inputValues.get('input-link'), popupPlace.inputValues.get('input-place'), openPopupZoom, '.elementTemplate');
-  section.setItemBefore(card.createElement());
-}
-
 //----------------------------------------------------
 //                Массив картинок
 //----------------------------------------------------
-// Добавление массива фотографий на форму
-const section = new Section(
-  {
-    data: initialCards,
-    renderer: (item) =>
-    {
-      const card = new Card(item.link, item.name, openPopupZoom, '.elementTemplate');
-      const cardElement = card.createElement();
-      section.setItemAfter(cardElement);
-    }
-  }, '.elements');
+function CreateCard({link, place})
+{
+  const card = new Card(link, place, openPopupZoom, '.elementTemplate');
+  return card.createElement();
+}
 
-section.renderItems();
+// Добавление пользовательской фото на страницу
+function handleFormSubmitAdd(inputValues)
+{
+  const cardHTML = CreateCard({link: inputValues.get('input-link'), place: inputValues.get('input-place')});
+  section.setItemBefore(cardHTML);
+}
+
+// Добавление массива фотографий на форму
+const section = new Section('.elements', (item) =>
+  {
+    const cardHTML = CreateCard({link: item.link, place: item.name});
+    section.setItemAfter(cardHTML);
+  });
+
+section.clear();
+section.renderItems(initialCards);
 
 //----------------------------------------------------
 //                  Валидация
 //----------------------------------------------------
-// Мне не нравится этот вариант.
-// Я считаю неправильным, что включение валидации происходит автоматически, внутри функции, а вызов
-// превалидации (валидации в момент открытия формы) - через обращение к массиву.
-// Гораздо логичнее использовать один и тот же подход для вызова всех функций одной сущности.
-// Но количество итераций ограничено, так что пусть будет как скажете.
-// Хотя это было меткой "можно лучше"((
-
 const formValidators = (function()
 {
   const formValidators = {};

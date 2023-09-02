@@ -1,27 +1,22 @@
 export default class UserInfo
 {
-  constructor(name, description)
+  constructor(selectorName, selectorDescription)
   {
-    this._name = name;
-    this._description = description;
+    this._nameOutput = document.querySelector(selectorName);
+    this._descriptionOutput = document.querySelector(selectorDescription);
   }
 
   // Получить данные пользователя
   getUserInfo()
   {
-    const info = [this._name, this._description];
+    const info = [this._nameOutput.textContent, this._descriptionOutput.textContent];
     return info;
   }
 
   // Установить в поля на странице
   setUserInfo(name, description)
   {
-    const nameOutput = document.querySelector('.profile__name');
-    this._name =
-    nameOutput.textContent = name;
-
-    const descriptionOutput = document.querySelector('.profile__description');
-    this._description =
-    descriptionOutput.textContent = description;
+    this._nameOutput.textContent = name;
+    this._descriptionOutput.textContent = description;
   }
 }
