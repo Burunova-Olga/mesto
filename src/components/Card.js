@@ -30,7 +30,8 @@ export default class Card
 
   _handleDeleteClick()
   {
-    this._deleteBtn.closest('.element').remove();
+    this._elementHTML.remove();
+    this._elementHTML = null;
   }
 
   // Настройка эффектов

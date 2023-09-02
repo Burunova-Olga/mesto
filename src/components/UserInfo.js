@@ -9,7 +9,7 @@ export default class UserInfo
   // Получить данные пользователя
   getUserInfo()
   {
-    const info = [this._nameOutput.textContent, this._descriptionOutput.textContent];
+    const info = {name: this._nameOutput.textContent, description: this._descriptionOutput.textContent};
     return info;
   }
 

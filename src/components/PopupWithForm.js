@@ -24,7 +24,6 @@ export default class PopupWithForm extends Popup
     this.formElement.addEventListener('submit', (evt) =>
     {
       evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-      this._getInputValues();
       this._handleFormSubmit(this._getInputValues());
       this.close();
     });

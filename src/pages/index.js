@@ -28,7 +28,7 @@ function showPopupEdit()
 {
   popupProfile.open();
 
-  const [name, description] = userInfo.getUserInfo();
+  const {name, description} = userInfo.getUserInfo();
   popupProfile.formElement.querySelector('#input-name').value = name;
   popupProfile.formElement.querySelector('#input-description').value = description;
 
@@ -57,7 +57,7 @@ function openPopupZoom(link, name)
 //----------------------------------------------------
 //                Массив картинок
 //----------------------------------------------------
-function CreateCard({link, place})
+function сreateCard({link, place})
 {
   const card = new Card(link, place, openPopupZoom, '.elementTemplate');
   return card.createElement();
@@ -66,14 +66,14 @@ function CreateCard({link, place})
 // Добавление пользовательской фото на страницу
 function handleFormSubmitAdd(inputValues)
 {
-  const cardHTML = CreateCard({link: inputValues.get('input-link'), place: inputValues.get('input-place')});
+  const cardHTML = сreateCard({link: inputValues.get('input-link'), place: inputValues.get('input-place')});
   section.setItemBefore(cardHTML);
 }
 
 // Добавление массива фотографий на форму
 const section = new Section('.elements', (item) =>
   {
-    const cardHTML = CreateCard({link: item.link, place: item.name});
+    const cardHTML = сreateCard({link: item.link, place: item.name});
     section.setItemAfter(cardHTML);
   });
 
