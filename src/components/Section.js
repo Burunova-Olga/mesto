@@ -21,11 +21,15 @@ export default class Section
     this._container.innerHTML = '';
   }
 
-  renderItems(data)
+  renderItems(renderItems)
   {
-    data.forEach((item) =>
-    {
-      this._renderer(item);
-    });
+    renderItems
+      .then((data) =>
+      {
+        data.forEach((item) =>
+        {
+          this._renderer(item);
+        });
+      });
   }
 }

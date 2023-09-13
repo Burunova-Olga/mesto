@@ -6,7 +6,7 @@ import Section from '../components/Section.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import
 {
-  initialCards,
+  api,
   validationConfig,
   popupZoom,
   userInfo,
@@ -21,6 +21,14 @@ const popupPlace = new PopupWithForm('.popup_type_places', handleFormSubmitAdd);
 //                      Popups
 //----------------------------------------------------
 //------------Изменение данных профиля----------------
+
+api.getUserInfo()
+  .then((result) =>
+  {
+    userInfo.setUserInfo(result.name, result.about);
+    const objAvatar = document.querySelector('.profile__image');
+    objAvatar.src = result.avatar;
+  });
 
 // Открыть форму редактирования профиля
 editBtn.addEventListener('click', showPopupEdit);
@@ -78,7 +86,8 @@ const section = new Section('.elements', (item) =>
   });
 
 section.clear();
-section.renderItems(initialCards);
+section.renderItems(api.getInitialCards());
+
 
 //----------------------------------------------------
 //                  Валидация
