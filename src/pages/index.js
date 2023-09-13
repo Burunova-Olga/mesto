@@ -25,9 +25,7 @@ const popupPlace = new PopupWithForm('.popup_type_places', handleFormSubmitAdd);
 api.getUserInfo()
   .then((result) =>
   {
-    userInfo.setUserInfo(result.name, result.about);
-    const objAvatar = document.querySelector('.profile__image');
-    objAvatar.src = result.avatar;
+    printUserInfo(result.name, result.about, result.avatar);
   });
 
 // Открыть форму редактирования профиля
@@ -43,10 +41,22 @@ function showPopupEdit()
   formValidators['form-popup_type_profile'].preValidation(false);
 }
 
+function printUserInfo(name, description, avatarLink)
+{
+  userInfo.setUserInfo(name, description);
+
+  const objAvatar = document.querySelector('.profile__image');
+  objAvatar.src = avatarLink;
+}
+
 // Внести на страницу новые данные профиля
 function handleFormSubmitProfile(inputValues)
 {
-  userInfo.setUserInfo(inputValues.get('input-name'), inputValues.get('input-description'));
+  api.setUserInfo(inputValues.get('input-name'), inputValues.get('input-description'))
+    .then((result) =>
+    {
+      printUserInfo(result.name, result.about, result.avatar);
+    });;
 }
 
 //-----------Добавление нового элемента---------------
@@ -65,29 +75,32 @@ function openPopupZoom(link, name)
 //----------------------------------------------------
 //                Массив картинок
 //----------------------------------------------------
-function сreateCard({link, place})
+function сreateCard(item)
 {
-  const card = new Card(link, place, openPopupZoom, '.elementTemplate');
+  const card = new Card(item, openPopupZoom, api.changeLike.bind(api), '.elementTemplate');
   return card.createElement();
 }
 
 // Добавление пользовательской фото на страницу
 function handleFormSubmitAdd(inputValues)
 {
-  const cardHTML = сreateCard({link: inputValues.get('input-link'), place: inputValues.get('input-place')});
-  section.setItemBefore(cardHTML);
+  api.addNewCard(inputValues.get('input-place'), inputValues.get('input-link'))
+    .then((res) =>
+    {
+      const cardHTML =  сreateCard(res);
+      section.setItemBefore(cardHTML);
+    })
 }
 
 // Добавление массива фотографий на форму
 const section = new Section('.elements', (item) =>
-  {
-    const cardHTML = сreateCard({link: item.link, place: item.name});
-    section.setItemAfter(cardHTML);
-  });
+{
+  const cardHTML =  сreateCard(item);
+  section.setItemAfter(cardHTML);
+});
 
 section.clear();
 section.renderItems(api.getInitialCards());
-
 
 //----------------------------------------------------
 //                  Валидация

@@ -1,0 +1,13 @@
+.like__count
+{
+
+  margin: 3px 0 0;
+  padding: 0;
+
+  max-height: min-content;
+
+  text-align: center;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 15.73px;
+}

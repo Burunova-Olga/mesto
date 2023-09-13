@@ -49,9 +49,11 @@
 @import url(../blocks/element/__zoom/element__zoom.css);
 @import url(../blocks/element/__delete/element__delete.css);
 @import url(../blocks/element/__caption/element__caption.css);
-@import url(../blocks/element/__like/element__like.css);
-@import url(../blocks/element/__like/_checked/element__like_checked.css);
 @import url(../blocks/element/__text/element__text.css);
+@import url(../blocks/like/like.css);
+@import url(../blocks/like/__button/like__button.css);
+@import url(../blocks/like/__button/_checked/element__like_checked.css);
+@import url(../blocks/like/__count/like__count.css);
 
 /* Footer */
 @import url(../blocks/footer/footer.css);
