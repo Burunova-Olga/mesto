@@ -8,14 +8,14 @@ export default class PopupWithAgree extends Popup
     this._handleFormSubmit = handleFormSubmit;
 
     this.submitElement = this.popup.querySelector('.form-popup__submit');
-    this._memberTextSubmit = this.submitElement.value;
+    this.memberTextSubmit = this.submitElement.value;
   }
 
-  open(id)
+  open(card, id)
   {
-    this.submitElement.value = this._memberTextSubmit;
     super.open();
     this._id = id;
+    this._card = card;
   }
 
   // Обработчик submit
@@ -28,8 +28,7 @@ export default class PopupWithAgree extends Popup
     {
       evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
       this.submitElement.value = "Удаление...";
-      this._handleFormSubmit(this._id);
-      this.close();
+      this._handleFormSubmit(this._card, this._id);
     });
   }
 }

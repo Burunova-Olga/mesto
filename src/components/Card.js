@@ -46,20 +46,29 @@ export default class Card
   // Обработчик лайка
   _handleLikeClick()
   {
-    this._likeBtn.classList.toggle('like__button_checked');
-    const isLike = this._likeBtn.classList.contains('like__button_checked');
+    const isLike = !this._likeBtn.classList.contains('like__button_checked');
     this._changeLike(this._item._id, isLike)
       .then((res) =>
       {
         this._elementLikeCount.textContent = res.likes.length;
-      }
-    );
+        this._likeBtn.classList.toggle('like__button_checked');
+      })
+      .catch(() =>
+      {
+        console.log("Что-то пошло не так: " + err);
+      })
   }
 
   // Обработик delete
   _handleDeleteClick()
   {
-    this._popupDelete.open(this._item._id);
+    this._popupDelete.open(this, this._item._id);
+  }
+
+  deleteCard()
+  {
+    this._elementHTML.remove();
+    this._elementHTML = null;
   }
 
   // Настройка эффектов

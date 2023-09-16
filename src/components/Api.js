@@ -38,10 +38,6 @@ export default class Api
         else
           return Promise.reject(`Ошибка: ${res.status}`);
       })
-      .catch((err) =>
-      {
-        console.log('Ошибка. Запрос не выполнен: ', err);
-      });
   }
 
   //*********************************************

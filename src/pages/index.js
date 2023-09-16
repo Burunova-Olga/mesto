@@ -22,18 +22,28 @@ const popupDelete = new PopupWithAgree('.popup_type_delete', handleFormSubmitDel
 const popupAvatar = new PopupWithForm('.popup_type_avatar', handleFormSubmitAvatar);
 
 //----------------------------------------------------
-//                    Профиль
+//                Загрузка страницы
 //----------------------------------------------------
 let myID;
 
-// Загрузить начальные значения при загрузке страницы
-api.getUserInfo()
-  .then((result) =>
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([userData, cards]) =>
   {
-    myID = result._id;
-    userInfo.setUserInfo(result.name, result.about);
-    userInfo.setUserAvatar(result.avatar);
+    myID = userData._id;
+    userInfo.setUserInfo(userData.name, userData.about);
+    userInfo.setUserAvatar(userData.avatar);
+
+    section.clear();
+    section.renderItems(cards);
+  })
+  .catch(err =>
+  {
+    console.log("Что-то пошло не так: " + err);
   });
+
+//----------------------------------------------------
+//                    Профиль
+//----------------------------------------------------
 
 // Открыть форму редактирования профиля
 editProfileBtn.addEventListener('click', showPopupEditProfile);
@@ -55,7 +65,17 @@ function handleFormSubmitProfile(inputValues)
     .then((result) =>
     {
       userInfo.setUserInfo(result.name, result.about);
-    });;
+
+      this.close();
+    })
+    .catch(() =>
+    {
+      console.log("Что-то пошло не так: " + err);
+    })
+    .finally(() =>
+    {
+      this.submitElement.value = this.memberTextSubmit;
+    });
 }
 
 // Открыть форму редактирования аватара
@@ -75,7 +95,17 @@ function handleFormSubmitAvatar(inputValues)
     .then((result) =>
     {
       userInfo.setUserAvatar(result.avatar);
-    });;
+
+      this.close();
+    })
+    .catch(() =>
+    {
+      console.log("Что-то пошло не так: " + err);
+    })
+    .finally(() =>
+    {
+      this.submitElement.value = this.memberTextSubmit;
+    });
 }
 
 //----------------------------------------------------
@@ -97,14 +127,36 @@ function handleFormSubmitAdd(inputValues)
     {
       const cardHTML =  сreateCard(res);
       section.setItemBefore(cardHTML);
+
+      this.close();
     })
+    .catch(() =>
+    {
+      console.log("Что-то пошло не так: " + err);
+    })
+    .finally(() =>
+    {
+      this.submitElement.value = this.memberTextSubmit;
+    });
 }
 
 // Удалить карточку
-function handleFormSubmitDelete(id)
+function handleFormSubmitDelete(card, id)
 {
-  api.deleteCard(id);
-  setTimeout(reloadSection, 200);
+  api.deleteCard(id)
+    .then((res) =>
+    {
+      card.deleteCard();
+      this.close();
+    })
+    .catch(() =>
+    {
+      console.log("Что-то пошло не так: " + err);
+    })
+    .finally(() =>
+    {
+      this.submitElement.value = this.memberTextSubmit;
+    });
 }
 
 // Вывод массива фотографий на форму
@@ -126,15 +178,6 @@ function openPopupZoom(link, name)
 {
   popupZoom.open(link, name);
 }
-
-function reloadSection()
-{
-  section.clear();
-  section.renderItems(api.getInitialCards());
-}
-
-// Вывод начального массива при загрузке страницы
-reloadSection();
 //----------------------------------------------------
 //                  Валидация
 //----------------------------------------------------

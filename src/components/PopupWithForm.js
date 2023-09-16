@@ -8,20 +8,13 @@ export default class PopupWithForm extends Popup
     this._handleFormSubmit = handleFormSubmit;
 
     this.submitElement = this.popup.querySelector('.form-popup__submit');
-    this._memberTextSubmit = this.submitElement.value;
+    this.memberTextSubmit = this.submitElement.value;
   }
 
   _getInputValues()
   {
     // создаём объект FormData, передаём в него элемент формы
     return new FormData(this.formElement);
-  }
-
-  open()
-  {
-    this.submitElement.value = this._memberTextSubmit;
-
-    super.open();
   }
 
   // Обработчик submit
@@ -35,7 +28,6 @@ export default class PopupWithForm extends Popup
       evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
       this.submitElement.value = "Сохранение...";
       this._handleFormSubmit(this._getInputValues());
-      this.close();
     });
   }
 
