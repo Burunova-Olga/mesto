@@ -3,9 +3,10 @@ import UserInfo from '../components/UserInfo.js';
 import Api from '../components/Api';
 
 const popupZoom = new PopupWithImage('.popup_type_zoom');
-const userInfo = new UserInfo('.profile__name', '.profile__description');
+const userInfo = new UserInfo('.profile__name', '.profile__description', '.avatar__image');
 
-const editBtn = document.querySelector('.profile__edit');
+const editProfileBtn = document.querySelector('.profile__edit');
+const editAvatarBtn = document.querySelector('.avatar__button');
 const addBtn = document.querySelector('.profile__add');
 
 const validationConfig =
@@ -28,4 +29,4 @@ const api = new Api
   }
 });
 
-export {api, validationConfig, popupZoom, userInfo, editBtn, addBtn};
+export {api, validationConfig, popupZoom, userInfo, editProfileBtn, editAvatarBtn, addBtn};

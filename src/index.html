@@ -14,7 +14,12 @@
 
   <main>
     <section class="profile">
-      <img src="<%=require('./images/profile-image.jpg')%>" class="profile__image" alt="Аватар">
+      <div class="avatar">
+        <img src="<%=require('./images/profile-image.jpg')%>" class="avatar__image" alt="Аватар">
+        <button type="button" class="button avatar__button" aria-label="Редактировать аватар">
+          <div class="avatar__pen"></div>
+        </button>
+      </div>
       <div class="profile__info">
         <h1 class="block profile__name">Жак-Ив Кусто</h1>
         <button type="button" class="button profile__edit" aria-label="Редактировать профиль"></button>
@@ -64,6 +69,34 @@
       </div>
     </div>
 
+    <div class="popup popup_type_delete" id="popup-delete">
+      <div class="popup__container">
+        <div class="close">
+          <button type="button" class="button close__button" aria-label="Закрыть без сохранения"></button>
+        </div>
+        <h3 class="popup__title">Вы уверены?</h3>
+        <form class="form-popup form-popup_type_delete" name="form-popup_type_delete" novalidate>
+          <input type="submit" class="form-popup__submit" value="Да">
+        </form>
+      </div>
+    </div>
+
+    <div class="popup popup_type_avatar" id="popup-avatar">
+      <div class="popup__container">
+        <div class="close">
+          <button type="button" class="button close__button" aria-label="Закрыть без сохранения"></button>
+        </div>
+        <h3 class="popup__title">Обновить аватар</h3>
+        <form class="form-popup form-popup_type_avatar" name="form-popup_type_avatar" novalidate>
+          <input type="url" class="form-popup__input form-popup__input_type_title" name="input-avatar" id="input-avatar"
+          placeholder='Ссылка на картинку' required>
+          <span class="form-popup__input-error input-avatar-error"></span>
+
+          <input type="submit" class="form-popup__submit" value="Сохранить">
+        </form>
+      </div>
+    </div>
+
     <section class="elements" aria-label="Место для фотографий">
     </section>
   </main>
@@ -77,7 +110,7 @@
       <button type="button" class="element__zoom" aria-label="Открыть оригинал фото">
         <img src="#" class="element__image" alt="...">
       </button>
-      <button type="button" class="button element__delete" aria-label="Удалить место"></button>
+      <button type="button" class="button element__delete element__delete_invisible" aria-label="Удалить место"></button>
       <div class="element__caption">
         <h3 class="block element__text"></h3>
         <div class="like">

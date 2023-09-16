@@ -73,6 +73,19 @@ export default class Api
     })
   }
 
+  setUserAvatar(link)
+  {
+    return this._requestWithBody
+    ({
+      method: 'PATCH',
+      url: "/users/me/avatar",
+      body: JSON.stringify
+      ({
+        avatar: link
+      })
+    })
+  }
+
   addNewCard(name, link)
   {
     return this._requestWithBody
@@ -85,6 +98,11 @@ export default class Api
         link: link
       })
     })
+  }
+
+  deleteCard(cardId)
+  {
+    return this._requestWithoutBody({method: 'DELETE', url: `/cards/${cardId}`});
   }
 
   changeLike(cardId, isLike)

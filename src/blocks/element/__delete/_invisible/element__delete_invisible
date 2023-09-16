@@ -1,0 +1,4 @@
+.element__delete_invisible
+{
+  opacity: 0;
+}
