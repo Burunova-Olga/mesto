@@ -22,13 +22,7 @@ export default class UserInfo
     this._descriptionOutput.textContent = description;
   }
 
-  // Установить в поля на странице
-  setUserAvatar(link)
-  {
-    this._avatarOutput.src = link;
-  }
-
-  // Установить в поля на странице
+  // Установить картинку
   setUserAvatar(link)
   {
     this._avatarOutput.src = link;

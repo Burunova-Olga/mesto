@@ -9,8 +9,11 @@ export default class Card
 
     const _elementTemplate = document.querySelector(templateSelector).content;
     this._elementHTML = _elementTemplate.querySelector('.element').cloneNode(true);
+
     this._elementLikeCount = this._elementHTML.querySelector('.like__count');
     this._deleteBtn = this._elementHTML.querySelector('.element__delete');
+    this._likeBtn = this._elementHTML.querySelector('.like__button');
+    this._zoomPopup = this._elementHTML.querySelector('.element__zoom');
   }
 
   // Конструкция из шаблона
@@ -22,9 +25,17 @@ export default class Card
     this._elementHTML.querySelector('.element__text').textContent = this._item.name;
     this._elementLikeCount.textContent = this._item.likes.length;
 
+    // Кнопка удаления
     if (this._item.owner._id == myID)
     {
       this._deleteBtn.classList.remove('element__delete_invisible');
+    }
+
+    // Отметка своих лайков
+    for (let i=0; i<this._item.likes.length; i++)
+    {
+      if (this._item.likes[i]._id == myID)
+        this._likeBtn.classList.add('like__button_checked');
     }
 
     this._setEventListeners();
@@ -47,17 +58,15 @@ export default class Card
 
   // Обработик delete
   _handleDeleteClick()
-  {console.log(this);
+  {
     this._popupDelete.open(this._item._id);
   }
 
   // Настройка эффектов
   _setEventListeners()
   {
-    this._likeBtn = this._elementHTML.querySelector('.like__button');
     this._likeBtn.addEventListener('click', () => this._handleLikeClick());
 
-    this._zoomPopup = this._elementHTML.querySelector('.element__zoom');
     this._zoomPopup.addEventListener('click', () => this._handleCardClick(this._item.link, this._item.name));
 
     this._deleteBtn.addEventListener('click', () => this._handleDeleteClick());

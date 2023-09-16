@@ -66,19 +66,14 @@ function showPopupEditAvatar()
 
   const {name, description, avatar} = userInfo.getUserInfo();
   popupAvatar.formElement.querySelector('#input-avatar').value = avatar;
-
-  //formValidators['form-popup_type_avatar'].preValidation(false);
 }
 
 // Форма изменения аватара прислала новые сведения
 function handleFormSubmitAvatar(inputValues)
 {
-  console.log(inputValues);
-  console.log(inputValues.get('input-avatar'));
   api.setUserAvatar(inputValues.get('input-avatar'))
     .then((result) =>
     {
-      console.log(result);
       userInfo.setUserAvatar(result.avatar);
     });;
 }
@@ -109,6 +104,7 @@ function handleFormSubmitAdd(inputValues)
 function handleFormSubmitDelete(id)
 {
   api.deleteCard(id);
+  setTimeout(reloadSection, 200);
 }
 
 // Вывод массива фотографий на форму
@@ -131,10 +127,14 @@ function openPopupZoom(link, name)
   popupZoom.open(link, name);
 }
 
-// Вывод начального массива при загрузке страницы
+function reloadSection()
+{
   section.clear();
   section.renderItems(api.getInitialCards());
+}
 
+// Вывод начального массива при загрузке страницы
+reloadSection();
 //----------------------------------------------------
 //                  Валидация
 //----------------------------------------------------
