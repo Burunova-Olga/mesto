@@ -27,7 +27,16 @@ export default class PopupWithForm extends Popup
     {
       evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
       this.submitElement.value = "Сохранение...";
-      this._handleFormSubmit(this._getInputValues());
+      this._handleFormSubmit(this._getInputValues())
+        .then(() => this.close())
+        .catch(() =>
+        {
+          console.log("Что-то пошло не так: " + err);
+        })
+        .finally(() =>
+        {
+          this.submitElement.value = this.memberTextSubmit;
+        })
     });
   }
 

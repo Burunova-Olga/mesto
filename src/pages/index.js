@@ -61,20 +61,10 @@ function showPopupEditProfile()
 // Форма изменения данных прислала новые сведения
 function handleFormSubmitProfile(inputValues)
 {
-  api.setUserInfo(inputValues.get('input-name'), inputValues.get('input-description'))
+  return api.setUserInfo(inputValues.get('input-name'), inputValues.get('input-description'))
     .then((result) =>
     {
       userInfo.setUserInfo(result.name, result.about);
-
-      this.close();
-    })
-    .catch(() =>
-    {
-      console.log("Что-то пошло не так: " + err);
-    })
-    .finally(() =>
-    {
-      this.submitElement.value = this.memberTextSubmit;
     });
 }
 
@@ -91,20 +81,10 @@ function showPopupEditAvatar()
 // Форма изменения аватара прислала новые сведения
 function handleFormSubmitAvatar(inputValues)
 {
-  api.setUserAvatar(inputValues.get('input-avatar'))
+  return api.setUserAvatar(inputValues.get('input-avatar'))
     .then((result) =>
     {
       userInfo.setUserAvatar(result.avatar);
-
-      this.close();
-    })
-    .catch(() =>
-    {
-      console.log("Что-то пошло не так: " + err);
-    })
-    .finally(() =>
-    {
-      this.submitElement.value = this.memberTextSubmit;
     });
 }
 
@@ -122,40 +102,22 @@ function showPopupAdd()
 // Добавление карточки на страницу
 function handleFormSubmitAdd(inputValues)
 {
-  api.addNewCard(inputValues.get('input-place'), inputValues.get('input-link'))
+  return api.addNewCard(inputValues.get('input-place'), inputValues.get('input-link'))
     .then((res) =>
     {
       const cardHTML =  сreateCard(res);
       section.setItemBefore(cardHTML);
-
-      this.close();
-    })
-    .catch(() =>
-    {
-      console.log("Что-то пошло не так: " + err);
-    })
-    .finally(() =>
-    {
-      this.submitElement.value = this.memberTextSubmit;
     });
 }
 
 // Удалить карточку
 function handleFormSubmitDelete(card, id)
 {
-  api.deleteCard(id)
+  return api.deleteCard(id)
     .then((res) =>
     {
       card.deleteCard();
       this.close();
-    })
-    .catch(() =>
-    {
-      console.log("Что-то пошло не так: " + err);
-    })
-    .finally(() =>
-    {
-      this.submitElement.value = this.memberTextSubmit;
     });
 }
 
